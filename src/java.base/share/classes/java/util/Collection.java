@@ -25,7 +25,11 @@
 
 package java.util;
 
+<<<<<<< HEAD
 import org.checkerframework.checker.index.qual.CanShrink;
+=======
+import org.checkerframework.checker.collectionownership.NotOwningCollection;
+>>>>>>> 2b5c3b69f6a (size() can be called on @NotOwningCollection)
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -286,7 +290,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @return the number of elements in this collection
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied Collection<E> this);
+    @NonNegative int size(@GuardSatisfied @NotOwningCollection Collection<E> this);
 
     /**
      * Returns {@code true} if this collection contains no elements.

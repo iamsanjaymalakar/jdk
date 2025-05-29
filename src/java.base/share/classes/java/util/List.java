@@ -25,7 +25,11 @@
 
 package java.util;
 
+<<<<<<< HEAD
 import org.checkerframework.checker.index.qual.CanShrink;
+=======
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+>>>>>>> 3c5510c4439 (allow some methods to be called on @NotOwningCollection)
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.IndexFor;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
@@ -179,7 +183,7 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
      * @return the number of elements in this list
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied List<E> this);
+    @NonNegative int size(@GuardSatisfied @NotOwningCollection List<E> this);
 
     /**
      * Returns {@code true} if this list contains no elements.
@@ -622,7 +626,7 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
      *         ({@code index < 0 || index >= size()})
      */
     @Pure
-    E get(@GuardSatisfied List<E> this, @IndexFor({"this"}) int index);
+    E get(@GuardSatisfied @NotOwningCollection List<E> this, @IndexFor({"this"}) int index);
 
     /**
      * Replaces the element at the specified position in this list with the

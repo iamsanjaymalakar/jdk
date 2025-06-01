@@ -33,7 +33,11 @@ import org.checkerframework.checker.collectionownership.NotOwningCollection;
 >>>>>>> 2b5c3b69f6a (size() can be called on @NotOwningCollection)
 =======
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+<<<<<<< HEAD
 >>>>>>> 3c5510c4439 (allow some methods to be called on @NotOwningCollection)
+=======
+import org.checkerframework.checker.collectionownership.qual.OwningCollection;
+>>>>>>> 0d8f824b532 (collection#add and list#add require receiver to be at most @OwningCollection)
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -497,7 +501,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      *         time due to insertion restrictions
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied Collection<E> this, E e);
+    boolean add(@GuardSatisfied @OwningCollection Collection<E> this, E e);
 
     /**
      * Removes a single instance of the specified element from this

@@ -37,7 +37,11 @@ import org.checkerframework.checker.collectionownership.qual.NotOwningCollection
 >>>>>>> 3c5510c4439 (allow some methods to be called on @NotOwningCollection)
 =======
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
+<<<<<<< HEAD
 >>>>>>> 0d8f824b532 (collection#add and list#add require receiver to be at most @OwningCollection)
+=======
+import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
+>>>>>>> f039c2db84a (make iterator() @PolyOwningCollection)
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -343,10 +347,14 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @SideEffectFree
 <<<<<<< HEAD
+<<<<<<< HEAD
     @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty Collection<E> this);
 =======
     @PolyNonEmpty Iterator<E> iterator(@PolyNonEmpty @OwningCollection Collection<E> this);
 >>>>>>> 70873de438e (Collection#add takes ownership of argument)
+=======
+    @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyNonEmpty @PolyOwningCollection Collection<E> this);
+>>>>>>> f039c2db84a (make iterator() @PolyOwningCollection)
 
     /**
      * Returns an array containing all of the elements in this collection.

@@ -42,6 +42,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -341,7 +342,11 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @return an {@code Iterator} over the elements in this collection
      */
     @SideEffectFree
+<<<<<<< HEAD
     @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty Collection<E> this);
+=======
+    @PolyNonEmpty Iterator<E> iterator(@PolyNonEmpty @OwningCollection Collection<E> this);
+>>>>>>> 70873de438e (Collection#add takes ownership of argument)
 
     /**
      * Returns an array containing all of the elements in this collection.
@@ -501,7 +506,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      *         time due to insertion restrictions
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied @OwningCollection Collection<E> this, E e);
+    boolean add(@GuardSatisfied @OwningCollection Collection<E> this, @Owning E e);
 
     /**
      * Removes a single instance of the specified element from this

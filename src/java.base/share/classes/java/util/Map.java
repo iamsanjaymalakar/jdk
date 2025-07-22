@@ -274,6 +274,7 @@ public interface Map<K, V extends @MustCallUnknown Object> {
      *         does not permit null keys ({@linkplain Collection##optional-restrictions optional})
      */
     @Pure
+    @NotOwning
     @Nullable V get(@GuardSatisfied @NotOwningCollection Map<K, V> this, @UnknownSignedness @GuardSatisfied Object key);
 
     // Modification Operations

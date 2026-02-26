@@ -295,7 +295,7 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
      * @throws NullPointerException if the specified array is null
      */
     @SideEffectFree
-    <T extends @UnknownSignedness Object> @Nullable T[] toArray(@PolyNull T[] a);
+    <T extends @UnknownSignedness @MustCallUnknown Object> @Nullable T[] toArray(@PolyNull T[] a);
 
 
     // Modification Operations
@@ -325,6 +325,7 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
     @ReleasesNoLocks
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
+    @CreatesCollectionObligation
     boolean add(@GuardSatisfied @OwningCollection List<E> this, @Owning E e);
 
     /**
@@ -353,9 +354,13 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
     boolean remove(@GuardSatisfied @CanShrink List<E> this, @UnknownSignedness Object o);
 =======
     @EnsuresNonNullIf(expression = "#1", result=true)
+<<<<<<< HEAD
     boolean remove(@GuardSatisfied List<E> this, @UnknownSignedness Object o);
 >>>>>>> ffce08c2bfe (add co annos for collection and list)
 
+=======
+    boolean remove(@GuardSatisfied @OwningCollectionWithoutObligation @Shrinkable List<E> this, @UnknownSignedness Object o);
+>>>>>>> 0e10b632c5d (Changes in annotations.)
 
     // Bulk Modification Operations
 
@@ -710,11 +715,15 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @ReleasesNoLocks
 <<<<<<< HEAD
+<<<<<<< HEAD
     E remove(@GuardSatisfied @CanShrink List<E> this, @IndexFor({"this"}) int index);
 =======
     E remove(@GuardSatisfied @NotOwningCollection List<E> this, @IndexFor({"this"}) int index);
 >>>>>>> ffce08c2bfe (add co annos for collection and list)
 
+=======
+    E remove(@GuardSatisfied @Shrinkable @OwningCollection List<E> this, @IndexFor({"this"}) int index);
+>>>>>>> 0e10b632c5d (Changes in annotations.)
 
     // Search Operations
 

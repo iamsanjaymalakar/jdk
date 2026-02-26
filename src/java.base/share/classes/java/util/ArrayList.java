@@ -1364,7 +1364,7 @@ public class ArrayList<E extends @MustCallUnknown Object> extends AbstractList<E
         }
 
         @SuppressWarnings("unchecked")
-        public <T> @Nullable T[] toArray(T[] a) {
+        public <T extends @UnknownSignedness @MustCallUnknown Object> @Nullable T[] toArray(T[] a) {
             checkForComodification();
             if (a.length < size)
                 return (T[]) Arrays.copyOfRange(

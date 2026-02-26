@@ -25,8 +25,15 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.OwningCollection;
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
+import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.dataflow.qual.Pure;
@@ -57,8 +64,8 @@ import org.checkerframework.framework.qual.CFComment;
  * @since   1.0
  */
 @CFComment({"lock/nullness: permit null elements"})
-@AnnotatedFor({"lock", "nullness"})
-public class Stack<E> extends Vector<E> {
+@AnnotatedFor({"lock", "nullness", "mustcall", "resourceleak"})
+public class Stack<E extends @MustCallUnknown Object> extends Vector<E> {
     /**
      * Creates an empty Stack.
      */
@@ -75,7 +82,7 @@ public class Stack<E> extends Vector<E> {
      * @return  the {@code item} argument.
      * @see     java.util.Vector#addElement
      */
-    public E push(@GuardSatisfied Stack<E> this, E item) {
+    public E push(@GuardSatisfied @OwningCollection Stack<E> this, @Owning E item) {
         addElement(item);
 
         return item;
@@ -89,7 +96,11 @@ public class Stack<E> extends Vector<E> {
      *          of the {@code Vector} object).
      * @throws  EmptyStackException  if this stack is empty.
      */
+<<<<<<< HEAD
     public synchronized E pop(@GuardSatisfied @NonEmpty @CanShrink Stack<E> this) {
+=======
+    public synchronized E pop(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Stack<E> this) {
+>>>>>>> 0e10b632c5d (Changes in annotations.)
         E       obj;
         int     len = size();
 
@@ -108,7 +119,7 @@ public class Stack<E> extends Vector<E> {
      * @throws  EmptyStackException  if this stack is empty.
      */
     @Pure
-    public synchronized E peek() {
+    public synchronized @NotOwning E peek(@NotOwningCollection Stack<E> this) {
         int     len = size();
 
         if (len == 0)
@@ -124,7 +135,7 @@ public class Stack<E> extends Vector<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    public boolean empty() {
+    public boolean empty(@NotOwningCollection Stack<E> this) {
         return size() == 0;
     }
 

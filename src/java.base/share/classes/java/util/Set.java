@@ -25,10 +25,16 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.OwningCollection;
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -130,8 +136,8 @@ import org.checkerframework.framework.qual.CFComment;
  */
 
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
-@AnnotatedFor({"lock", "nullness", "index"})
-public interface Set<E> extends Collection<E> {
+@AnnotatedFor({"lock", "nullness", "index", "mustcall", "resourceleak"})
+public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
     // Query Operations
 
     /**
@@ -142,7 +148,7 @@ public interface Set<E> extends Collection<E> {
      * @return the number of elements in this set (its cardinality)
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied Set<E> this);
+    @NonNegative int size(@GuardSatisfied @NotOwningCollection Set<E> this);
 
     /**
      * Returns {@code true} if this set contains no elements.
@@ -151,7 +157,7 @@ public interface Set<E> extends Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    boolean isEmpty(@GuardSatisfied Set<E> this);
+    boolean isEmpty(@GuardSatisfied @NotOwningCollection Set<E> this);
 
     /**
      * Returns {@code true} if this set contains the specified element.
@@ -170,7 +176,7 @@ public interface Set<E> extends Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean contains(@GuardSatisfied Set<E> this, @GuardSatisfied @UnknownSignedness Object o);
+    boolean contains(@GuardSatisfied @NotOwningCollection Set<E> this, @GuardSatisfied @UnknownSignedness Object o);
 
     /**
      * Returns an iterator over the elements in this set.  The elements are
@@ -284,7 +290,7 @@ public interface Set<E> extends Collection<E> {
      *         prevents it from being added to this set
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied Set<E> this, E e);
+    boolean add(@GuardSatisfied @OwningCollection Set<E> this, @Owning E e);
 
 
     /**
@@ -308,7 +314,7 @@ public interface Set<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code remove} operation
      *         is not supported by this set
      */
-    boolean remove(@GuardSatisfied Set<E> this, @UnknownSignedness Object o);
+    boolean remove(@GuardSatisfied @OwningCollectionWithoutObligation Set<E> this, @UnknownSignedness Object o);
 
 
     // Bulk Operations
@@ -413,7 +419,7 @@ public interface Set<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code clear} method
      *         is not supported by this set
      */
-    void clear(@GuardSatisfied Set<E> this);
+    void clear(@GuardSatisfied @OwningCollectionWithoutObligation Set<E> this);
 
 
     // Comparison and hashing
@@ -431,7 +437,7 @@ public interface Set<E> extends Collection<E> {
      * @return {@code true} if the specified object is equal to this set
      */
     @Pure
-    boolean equals(@GuardSatisfied Set<E> this, @GuardSatisfied @Nullable Object o);
+    boolean equals(@GuardSatisfied @NotOwningCollection Set<E> this, @GuardSatisfied @Nullable Object o);
 
     /**
      * Returns the hash code value for this set.  The hash code of a set is
@@ -447,7 +453,7 @@ public interface Set<E> extends Collection<E> {
      * @see Set#equals(Object)
      */
     @Pure
-    int hashCode(@GuardSatisfied Set<E> this);
+    int hashCode(@GuardSatisfied @NotOwningCollection Set<E> this);
 
     /**
      * Creates a {@code Spliterator} over the elements in this set.

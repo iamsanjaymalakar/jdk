@@ -35,8 +35,15 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.OwningCollection;
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
+import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -146,8 +153,8 @@ import org.checkerframework.framework.qual.CFComment;
  * @param <E> the type of elements held in this queue
  */
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
-@AnnotatedFor({"lock", "nullness"})
-public interface Queue<E> extends Collection<E> {
+@AnnotatedFor({"lock", "nullness", "mustcall", "resourceleak"})
+public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> {
     /**
      * Inserts the specified element into this queue if it is possible to do so
      * immediately without violating capacity restrictions, returning
@@ -166,7 +173,7 @@ public interface Queue<E> extends Collection<E> {
      *         prevents it from being added to this queue
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied Queue<E> this, E e);
+    boolean add(@GuardSatisfied @OwningCollection Queue<E> this, @Owning E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do
@@ -185,7 +192,7 @@ public interface Queue<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
-    boolean offer(E e);
+    boolean offer(@GuardSatisfied @OwningCollection Queue<E> this, @Owning E e);
 
     /**
      * Retrieves and removes the head of this queue.  This method differs
@@ -195,7 +202,11 @@ public interface Queue<E> extends Collection<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
+<<<<<<< HEAD
     E remove(@GuardSatisfied @NonEmpty @CanShrink Queue<E> this);
+=======
+    E remove(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Queue<E> this);
+>>>>>>> 0e10b632c5d (Changes in annotations.)
 
     /**
      * Retrieves and removes the head of this queue,
@@ -203,7 +214,11 @@ public interface Queue<E> extends Collection<E> {
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
+<<<<<<< HEAD
     @Nullable E poll(@GuardSatisfied @CanShrink Queue<E> this);
+=======
+    @Nullable E poll(@GuardSatisfied @NotOwningCollection @Shrinkable Queue<E> this);
+>>>>>>> 0e10b632c5d (Changes in annotations.)
 
     /**
      * Retrieves, but does not remove, the head of this queue.  This method
@@ -213,7 +228,7 @@ public interface Queue<E> extends Collection<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    E element(@GuardSatisfied @NonEmpty Queue<E> this);
+    @NotOwning E element(@GuardSatisfied @NotOwningCollection @NonEmpty Queue<E> this);
 
     /**
      * Retrieves, but does not remove, the head of this queue,
@@ -221,5 +236,15 @@ public interface Queue<E> extends Collection<E> {
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
+<<<<<<< HEAD
     @Nullable E peek();
+=======
+    @Nullable  @NotOwning E peek(@GuardSatisfied @NotOwningCollection Queue<E> this);
+
+    @CFComment("Copied from Collection to make it annotatable")
+    @Pure
+    // @EnsuresNonNullIf(expression={"poll()", "peek()"}, result=true)
+    @EnsuresNonEmptyIf(result = false, expression = "this")
+    boolean isEmpty(@GuardSatisfied @NotOwningCollection Queue<E> this);
+>>>>>>> 0e10b632c5d (Changes in annotations.)
 }

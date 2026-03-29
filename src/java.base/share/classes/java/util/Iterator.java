@@ -26,6 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
@@ -119,7 +120,7 @@ public interface Iterator<E extends @MustCallUnknown Object> {
      *         been called after the last call to the {@code next}
      *         method
      */
-    default void remove(@GuardSatisfied @CanShrink Iterator<E> this) {
+    default void remove(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Iterator<E> this) {
         throw new UnsupportedOperationException("remove");
     }
 

@@ -25,6 +25,7 @@
 package java.util.stream;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.mustcall.qual.PolyMustCall;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -1417,7 +1418,7 @@ public interface Stream<T> extends BaseStream<T, Stream<T>> {
      * @param <T> the type of stream elements
      * @return a singleton sequential stream
      */
-    public static<T> @NonEmpty Stream<T> of(T t) {
+    public static<T extends @MustCallUnknown Object> @NonEmpty Stream<@PolyMustCall T> of(@PolyMustCall T t) {
         return StreamSupport.stream(new Streams.StreamBuilderImpl<>(t), false);
     }
 
@@ -1445,7 +1446,7 @@ public interface Stream<T> extends BaseStream<T, Stream<T>> {
      */
     @SafeVarargs
     @SuppressWarnings("varargs") // Creating a stream from an array is safe
-    public static<T> @PolyNonEmpty Stream<T> of(T @PolyNonEmpty... values) {
+    public static<T extends @MustCallUnknown Object> @PolyNonEmpty Stream<@PolyMustCall T> of(@PolyMustCall T @PolyNonEmpty... values) {
         return Arrays.stream(values);
     }
 

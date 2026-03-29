@@ -237,7 +237,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @see Arrays#asList(Object[])
      */
     @SideEffectFree
-    @PolyNull @PolySigned Object[] toArray(List<@PolyNull @PolySigned E> this);
+    @PolyNull @PolySigned Object[] toArray(@NotOwningCollection List<@PolyNull @PolySigned E> this);
 
     /**
      * Returns an array containing all of the elements in this list in
@@ -279,7 +279,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @throws NullPointerException if the specified array is null
      */
     @SideEffectFree
-    <T extends @UnknownSignedness @MustCallUnknown Object> @Nullable T[] toArray(@PolyNull T[] a);
+    <T extends @UnknownSignedness @MustCallUnknown Object> @Nullable T[] toArray(@NotOwningCollection List<E> this, @PolyNull T[] a);
 
 
     // Modification Operations
@@ -310,7 +310,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
-    boolean add(@GuardSatisfied @OwningCollection List<E> this, @Owning E e);
+    boolean add(@GuardSatisfied @NotOwningCollection List<E> this, E e);
 
     /**
      * Removes the first occurrence of the specified element from this list,
@@ -383,7 +383,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean addAll(@GuardSatisfied List<E> this, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @OwningCollection List<E> this, @OwningCollection Collection<@MustCallUnknown ? extends @MustCallUnknown E> c);
 
     /**
      * Inserts all of the elements in the specified collection into this
@@ -1243,7 +1243,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @throws NullPointerException if coll is null, or if it contains any nulls
      * @since 10
      */
-    static <E extends Object> @PolyNonEmpty List<E> copyOf(@PolyNonEmpty Collection<? extends E> coll) {
+    static <E extends @MustCallUnknown Object> @PolyNonEmpty @PolyOwningCollection List<E> copyOf(@PolyNonEmpty @PolyOwningCollection Collection<? extends E> coll) {
         return ImmutableCollections.listCopy(coll);
     }
 }

@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
@@ -286,7 +287,8 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      *         prevents it from being added to this set
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied @OwningCollection Set<E> this, @Owning E e);
+    @CreatesCollectionObligation
+    boolean add(@GuardSatisfied @NotOwningCollection Set<E> this, E e);
 
 
     /**

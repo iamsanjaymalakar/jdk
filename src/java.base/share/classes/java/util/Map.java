@@ -186,7 +186,7 @@ import java.io.Serializable;
  */
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
 @AnnotatedFor({"lock", "nullness", "index", "aliasing", "nonempty", "resourceleak"})
-public interface Map<K, V extends @MustCallUnknown Object> {
+public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnknown Object> {
     // Query Operations
 
     /**
@@ -274,7 +274,6 @@ public interface Map<K, V extends @MustCallUnknown Object> {
      *         does not permit null keys ({@linkplain Collection##optional-restrictions optional})
      */
     @Pure
-    @NotOwning
     @Nullable V get(@GuardSatisfied @NotOwningCollection Map<K, V> this, @UnknownSignedness @GuardSatisfied Object key);
 
     // Modification Operations

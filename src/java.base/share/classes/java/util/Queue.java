@@ -39,6 +39,7 @@ import org.checkerframework.checker.collectionownership.qual.NotOwningCollection
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
@@ -173,7 +174,8 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *         prevents it from being added to this queue
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied @OwningCollection Queue<E> this, @Owning E e);
+    @CreatesCollectionObligation
+    boolean add(@GuardSatisfied @NotOwningCollection Queue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do
@@ -192,7 +194,8 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
-    boolean offer(@GuardSatisfied @OwningCollection Queue<E> this, @Owning E e);
+    @CreatesCollectionObligation
+    boolean offer(@GuardSatisfied @NotOwningCollection Queue<E> this, E e);
 
     /**
      * Retrieves and removes the head of this queue.  This method differs

@@ -25,11 +25,14 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.PolyMustCall;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -2494,7 +2497,7 @@ public class Collections {
      * @param  s the set to be "wrapped" in a synchronized set.
      * @return a synchronized view of the specified set.
      */
-    public static <T> Set<T> synchronizedSet(Set<T> s) {
+    public static <T extends @MustCallUnknown Object> Set<@PolyMustCall T> synchronizedSet(@NotOwningCollection Set<@PolyMustCall T> s) {
         return new SynchronizedSet<>(s);
     }
 
@@ -6143,8 +6146,8 @@ public class Collections {
      * @since 1.6
      */
     @SideEffectFree
-    public static <E> Set<E> newSetFromMap(Map<E, Boolean> map) {
-        if (! map.isEmpty()) // implicit null check
+    public static <E extends @MustCallUnknown Object> Set<@PolyMustCall E> newSetFromMap(Map<@PolyMustCall E, Boolean> map) {
+        if (!map.isEmpty()) // implicit null check
             throw new IllegalArgumentException("Map is non-empty");
         return new SetFromMap<>(map);
     }

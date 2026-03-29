@@ -24,6 +24,7 @@
  */
 package java.util;
 
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.SignedPositive;
 import org.checkerframework.dataflow.qual.Pure;
@@ -299,7 +300,7 @@ import java.util.function.LongConsumer;
  * @since 1.8
  */
 @AnnotatedFor({"lock", "nullness"})
-public interface Spliterator<T> {
+public interface Spliterator<T extends @MustCallUnknown Object> {
     /**
      * If a remaining element exists: performs the given action on it,
      * returning {@code true}; else returns {@code false}.  If this

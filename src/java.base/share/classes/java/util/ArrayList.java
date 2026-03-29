@@ -25,7 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
@@ -461,7 +463,7 @@ public class ArrayList<E extends @MustCallUnknown Object> extends AbstractList<E
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @Pure
-    public E get(@GuardSatisfied ArrayList<E> this, @NonNegative int index) {
+    public @NotOwning E get(@GuardSatisfied @NotOwningCollection ArrayList<E> this, @NonNegative int index) {
         Objects.checkIndex(index, size);
         return elementData(index);
     }
@@ -1073,7 +1075,7 @@ public class ArrayList<E extends @MustCallUnknown Object> extends AbstractList<E
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    public @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty ArrayList<E> this) {
+    public @PolyGrowShrink @PolyOwningCollection @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection ArrayList<E> this) {
         return new Itr();
     }
 
@@ -1243,7 +1245,7 @@ public class ArrayList<E extends @MustCallUnknown Object> extends AbstractList<E
         return new SubList<>(this, fromIndex, toIndex);
     }
 
-    private static class SubList<E> extends AbstractList<E> implements RandomAccess {
+    private static class SubList<E extends @MustCallUnknown Object> extends AbstractList<E> implements RandomAccess {
         private final ArrayList<E> root;
         private final SubList<E> parent;
         private final int offset;

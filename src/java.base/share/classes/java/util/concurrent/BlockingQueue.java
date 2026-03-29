@@ -35,7 +35,12 @@
 
 package java.util.concurrent;
 
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.index.qual.CanShrink;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -188,7 +193,7 @@ import java.util.Queue;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"nullness"})
-public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
+public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> extends Queue<E> {
     /**
      * Inserts the specified element into this queue if it is possible to do
      * so immediately without violating capacity restrictions, returning
@@ -208,7 +213,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         element prevents it from being added to this queue
      */
     @EnsuresNonEmpty("this")
-    boolean add(E e);
+    @CreatesCollectionObligation
+    boolean add(@GuardSatisfied @NotOwningCollection BlockingQueue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do
@@ -227,7 +233,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
-    boolean offer(E e);
+    @CreatesCollectionObligation
+    boolean offer(@GuardSatisfied @NotOwningCollection BlockingQueue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue, waiting if necessary
@@ -241,7 +248,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
-    void put(E e) throws InterruptedException;
+    @CreatesCollectionObligation
+    void put(@NotOwningCollection BlockingQueue<E> this, E e) throws InterruptedException;
 
     /**
      * Inserts the specified element into this queue, waiting up to the
@@ -271,7 +279,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @return the head of this queue
      * @throws InterruptedException if interrupted while waiting
      */
-    E take() throws InterruptedException;
+    E take(@NotOwningCollection BlockingQueue<E> this) throws InterruptedException;
 
     /**
      * Retrieves and removes the head of this queue, waiting up to the
@@ -319,7 +327,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws NullPointerException if the specified element is null
      * (<a href="{@docRoot}/java.base/java/util/Collection.html#optional-restrictions">optional</a>)
      */
-    boolean remove(@CanShrink BlockingQueue<E> this, @UnknownSignedness Object o);
+    boolean remove(@CanShrink @OwningCollectionWithoutObligation BlockingQueue<E> this, @UnknownSignedness Object o);
 
     /**
      * Returns {@code true} if this queue contains the specified element.
@@ -336,7 +344,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean contains(@UnknownSignedness Object o);
+    boolean contains(@NotOwningCollection BlockingQueue<E> this, @UnknownSignedness Object o);
 
     /**
      * Removes all available elements from this queue and adds them

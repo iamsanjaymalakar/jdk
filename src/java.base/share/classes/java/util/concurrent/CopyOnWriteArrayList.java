@@ -35,6 +35,7 @@
 package java.util.concurrent;
 
 import org.checkerframework.checker.index.qual.CanShrink;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
@@ -113,7 +114,7 @@ import jdk.internal.util.ArraysSupport;
  * @author Doug Lea
  * @param <E> the type of elements held in this list
  */
-public class CopyOnWriteArrayList<E>
+public class CopyOnWriteArrayList<E extends @MustCallUnknown Object>
     implements List<E>, RandomAccess, Cloneable, java.io.Serializable {
     private static final long serialVersionUID = 8673264195747942595L;
 

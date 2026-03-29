@@ -25,6 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -250,7 +252,8 @@ public class HashSet<E extends @MustCallUnknown Object>
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied HashSet<E> this, E e) {
+    @CreatesCollectionObligation
+    public boolean add(@GuardSatisfied @NotOwningCollection HashSet<E> this, E e) {
         return map.put(e, PRESENT)==null;
     }
 

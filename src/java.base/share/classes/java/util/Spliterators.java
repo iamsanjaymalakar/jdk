@@ -148,7 +148,7 @@ public final class Spliterators {
      * @throws NullPointerException if the given array is {@code null}
      * @see Arrays#spliterator(Object[])
      */
-    public static <T> Spliterator<T> spliterator(Object[] array,
+    public static <T extends @MustCallUnknown Object> Spliterator<T> spliterator(Object[] array,
                                                  int additionalCharacteristics) {
         return new ArraySpliterator<>(Objects.requireNonNull(array),
                                       additionalCharacteristics);

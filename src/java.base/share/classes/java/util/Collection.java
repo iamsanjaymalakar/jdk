@@ -366,7 +366,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
     "methods, because the most useful type for toArray is not expressible",
     "in the surface syntax that the nullness annotations support."})
     @SideEffectFree
-    @PolyNull @PolySigned Object[] toArray(Collection<@PolyNull @PolySigned E> this);
+    @PolyNull @PolySigned Object[] toArray(@NotOwningCollection Collection<@PolyNull @PolySigned E> this);
 
     /**
      * Returns an array containing all of the elements in this collection;
@@ -420,7 +420,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @throws NullPointerException if the specified array is null
      */
     @SideEffectFree
-    <T extends @UnknownSignedness Object> @Nullable T [] toArray(@PolyNull T[] a);
+    <T extends @UnknownSignedness Object> @Nullable T [] toArray(@NotOwningCollection Collection<E> this, @PolyNull T[] a);
 
     /**
      * Returns an array containing all of the elements in this collection,
@@ -498,7 +498,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
-    boolean add(@GuardSatisfied @OwningCollection Collection<E> this, @Owning E e);
+    boolean add(@GuardSatisfied @NotOwningCollection Collection<E> this, E e);
 
     /**
      * Removes a single instance of the specified element from this
@@ -574,7 +574,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @see #add(Object)
      */
     @CreatesCollectionObligation
-    boolean addAll(@GuardSatisfied @OwningCollection Collection<E> this, @OwningCollection Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @OwningCollection Collection<E> this, @OwningCollection Collection<@MustCallUnknown ? extends @MustCallUnknown E> c);
 
     /**
      * Removes all of this collection's elements that are also contained in the

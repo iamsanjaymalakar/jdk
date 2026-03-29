@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.index.qual.IndexFor;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
 import org.checkerframework.checker.index.qual.NonNegative;
@@ -54,6 +55,7 @@ import jdk.internal.vm.annotation.IntrinsicCandidate;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.util.Arrays.NaturalOrder;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
@@ -4273,7 +4275,7 @@ public final class Arrays {
     @SafeVarargs
     @SideEffectFree
     @SuppressWarnings("varargs")
-    public static <T> @PolyNonEmpty List<T> asList(T @PolyNonEmpty... a) {
+    public static <T extends @MustCallUnknown Object> @PolyNonEmpty List<@PolyMustCall T> asList(@PolyMustCall T @PolyNonEmpty... a) {
         return new ArrayList<>(a);
     }
 

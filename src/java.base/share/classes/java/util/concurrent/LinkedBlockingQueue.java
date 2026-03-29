@@ -36,6 +36,7 @@
 package java.util.concurrent;
 
 import org.checkerframework.checker.index.qual.CanShrink;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -94,7 +95,7 @@ import java.util.function.Predicate;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"nullness"})
-public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
+public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends AbstractQueue<E>
         implements BlockingQueue<E>, java.io.Serializable {
     private static final long serialVersionUID = -6903933977591709194L;
 

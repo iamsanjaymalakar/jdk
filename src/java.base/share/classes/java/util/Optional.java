@@ -24,6 +24,7 @@
  */
 package java.util;
 
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -88,7 +89,7 @@ import java.util.stream.Stream;
 @AnnotatedFor({"lock", "nullness", "optional"})
 @Covariant(0)
 @jdk.internal.ValueBased
-public final @NonNull class Optional<T> {
+public final @NonNull class Optional<T extends @MustCallUnknown Object> {
     /**
      * Common instance for {@code empty()}.
      */

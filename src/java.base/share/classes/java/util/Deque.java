@@ -35,6 +35,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
@@ -447,7 +448,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
-    boolean add(@GuardSatisfied @OwningCollection Deque<E> this, @Owning E e);
+    boolean add(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Deque<E> this, E e);
 
     /**
      * Inserts the specified element into the queue represented by this deque

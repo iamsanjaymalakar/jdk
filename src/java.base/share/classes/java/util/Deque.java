@@ -448,7 +448,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
-    boolean add(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Deque<E> this, E e);
+    boolean add(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this, E e);
 
     /**
      * Inserts the specified element into the queue represented by this deque

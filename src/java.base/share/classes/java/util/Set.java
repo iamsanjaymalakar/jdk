@@ -186,11 +186,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @return an iterator over the elements in this set
      */
     @SideEffectFree
-<<<<<<< HEAD
-    @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty Set<E> this);
-=======
-    @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyNonEmpty @PolyOwningCollection Set<E> this);
->>>>>>> 1387367fd7a (set#iterator is polyowningcollection)
+    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Set<E> this);
 
     /**
      * Returns an array containing all of the elements in this set.

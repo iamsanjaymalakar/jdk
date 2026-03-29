@@ -224,13 +224,8 @@ import org.checkerframework.framework.qual.CFComment;
  * @param <E> the type of elements held in this deque
  */
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
-<<<<<<< HEAD
-@AnnotatedFor({"lock", "nullness", "index"})
-public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
-=======
 @AnnotatedFor({"lock", "nullness", "index", "mustcall", "resourceleak"})
-public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
->>>>>>> 0e10b632c5d (Changes in annotations.)
+public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, SequencedCollection<E> {
     /**
      * Inserts the specified element at the front of this deque if it is
      * possible to do so immediately without violating capacity restrictions,
@@ -321,11 +316,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      * @return the head of this deque
      * @throws NoSuchElementException if this deque is empty
      */
-<<<<<<< HEAD
-    E removeFirst(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
-=======
-    E removeFirst(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Deque<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    E removeFirst(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
     /**
      * Retrieves and removes the last element of this deque.  This method
@@ -335,11 +326,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      * @return the tail of this deque
      * @throws NoSuchElementException if this deque is empty
      */
-<<<<<<< HEAD
-    E removeLast(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
-=======
-    E removeLast(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Deque<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    E removeLast(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
     /**
      * Retrieves and removes the first element of this deque,
@@ -347,11 +334,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
-<<<<<<< HEAD
-    @Nullable E pollFirst(@GuardSatisfied @CanShrink Deque<E> this);
-=======
-    @Nullable E pollFirst(@GuardSatisfied @NotOwningCollection @Shrinkable Deque<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    @Nullable E pollFirst(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
     /**
      * Retrieves and removes the last element of this deque,
@@ -359,11 +342,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      *
      * @return the tail of this deque, or {@code null} if this deque is empty
      */
-<<<<<<< HEAD
-    @Nullable E pollLast(@GuardSatisfied @CanShrink Deque<E> this);
-=======
-    @Nullable E pollLast(@GuardSatisfied @NotOwningCollection @Shrinkable Deque<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    @Nullable E pollLast(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
     /**
      * Retrieves, but does not remove, the first element of this deque.
@@ -375,11 +354,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      * @throws NoSuchElementException if this deque is empty
      */
     @EnsuresNonEmpty("this")
-<<<<<<< HEAD
-    E getFirst(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
-=======
-    @NotOwning E getFirst(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Deque<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    @NotOwning E getFirst(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
     /**
      * Retrieves, but does not remove, the last element of this deque.
@@ -390,11 +365,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      * @throws NoSuchElementException if this deque is empty
      */
     @EnsuresNonEmpty("this")
-<<<<<<< HEAD
-    E getLast(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
-=======
-    @NotOwning E getLast(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Deque<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    @NotOwning E getLast(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
     /**
      * Retrieves, but does not remove, the first element of this deque,
@@ -402,7 +373,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
-    @Nullable @NotOwning E peekFirst(@GuardSatisfied @NotOwningCollection @Shrinkable Deque<E> this);
+    @Nullable @NotOwning E peekFirst(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
     /**
      * Retrieves, but does not remove, the last element of this deque,
@@ -410,7 +381,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      *
      * @return the tail of this deque, or {@code null} if this deque is empty
      */
-    @Nullable @NotOwning E peekLast(@GuardSatisfied @NotOwningCollection @Shrinkable Deque<E> this);
+    @Nullable @NotOwning E peekLast(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
     /**
      * Removes the first occurrence of the specified element from this deque.
@@ -429,11 +400,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-<<<<<<< HEAD
-    boolean removeFirstOccurrence(@GuardSatisfied @CanShrink Deque<E> this, Object o);
-=======
-    boolean removeFirstOccurrence(@GuardSatisfied @OwningCollectionWithoutObligation @Shrinkable Deque<E> this, Object o);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    boolean removeFirstOccurrence(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Deque<E> this, Object o);
 
     /**
      * Removes the last occurrence of the specified element from this deque.
@@ -452,11 +419,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-<<<<<<< HEAD
-    boolean removeLastOccurrence(@GuardSatisfied @CanShrink Deque<E> this, Object o);
-=======
-    boolean removeLastOccurrence(@GuardSatisfied @OwningCollectionWithoutObligation @Shrinkable Deque<E> this, Object o);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    boolean removeLastOccurrence(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Deque<E> this, Object o);
 
     // *** Queue methods ***
 
@@ -521,11 +484,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
-<<<<<<< HEAD
-    E remove(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
-=======
-    E remove(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Deque<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    E remove(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
     /**
      * Retrieves and removes the head of the queue represented by this deque
@@ -537,11 +496,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      * @return the first element of this deque, or {@code null} if
      *         this deque is empty
      */
-<<<<<<< HEAD
-    @Nullable E poll(@GuardSatisfied @CanShrink Deque<E> this);
-=======
-    @Nullable E poll(@GuardSatisfied @NotOwningCollection @Shrinkable Deque<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    @Nullable E poll(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
     /**
      * Retrieves, but does not remove, the head of the queue represented by
@@ -628,11 +583,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      *         of the stack represented by this deque)
      * @throws NoSuchElementException if this deque is empty
      */
-<<<<<<< HEAD
-    E pop(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
-=======
-    E pop(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Deque<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    E pop(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
 
     // *** Collection methods ***
@@ -656,11 +607,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E> {
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-<<<<<<< HEAD
-    boolean remove(@GuardSatisfied @CanShrink Deque<E> this, @UnknownSignedness Object o);
-=======
-    boolean remove(@GuardSatisfied @OwningCollectionWithoutObligation @Shrinkable Deque<E> this, @UnknownSignedness Object o);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    boolean remove(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Deque<E> this, @UnknownSignedness Object o);
 
     /**
      * Returns {@code true} if this deque contains the specified element.

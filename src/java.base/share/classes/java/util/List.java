@@ -25,20 +25,12 @@
 
 package java.util;
 
-<<<<<<< HEAD
-import org.checkerframework.checker.index.qual.CanShrink;
-=======
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
-<<<<<<< HEAD
->>>>>>> 3c5510c4439 (allow some methods to be called on @NotOwningCollection)
-=======
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
-<<<<<<< HEAD
->>>>>>> 0d8f824b532 (collection#add and list#add require receiver to be at most @OwningCollection)
-=======
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
->>>>>>> ffce08c2bfe (add co annos for collection and list)
+import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.IndexFor;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
@@ -53,6 +45,7 @@ import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
+import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.PolySigned;
@@ -177,13 +170,8 @@ import java.util.function.UnaryOperator;
  */
 
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
-<<<<<<< HEAD
-@AnnotatedFor({"lock", "nullness", "index"})
-public interface List<E> extends SequencedCollection<E> {
-=======
 @AnnotatedFor({"lock", "nullness", "index", "mustcall", "resourceleak"})
-public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
->>>>>>> 0018a83b643 (elevate type var upper bound to MustcallUnkown for List, ArrayList)
+public interface List<E extends @MustCallUnknown Object> extends SequencedCollection<E> {
     // Query Operations
 
     /**
@@ -230,11 +218,7 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-<<<<<<< HEAD
-    @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty List<E> this);
-=======
-    @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyNonEmpty @PolyOwningCollection List<E> this);
->>>>>>> ffce08c2bfe (add co annos for collection and list)
+    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection List<E> this);
 
     /**
      * Returns an array containing all of the elements in this list in proper
@@ -350,17 +334,8 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
      *         is not supported by this list
      */
     @SideEffectsOnly("this")
-<<<<<<< HEAD
-    boolean remove(@GuardSatisfied @CanShrink List<E> this, @UnknownSignedness Object o);
-=======
-    @EnsuresNonNullIf(expression = "#1", result=true)
-<<<<<<< HEAD
-    boolean remove(@GuardSatisfied List<E> this, @UnknownSignedness Object o);
->>>>>>> ffce08c2bfe (add co annos for collection and list)
-
-=======
-    boolean remove(@GuardSatisfied @OwningCollectionWithoutObligation @Shrinkable List<E> this, @UnknownSignedness Object o);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    @EnsuresNonNullIf(expression = "#1", result = true)
+    boolean remove(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation List<E> this, @UnknownSignedness Object o);
 
     // Bulk Modification Operations
 
@@ -597,11 +572,7 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-<<<<<<< HEAD
-    void clear(@GuardSatisfied @CanShrink List<E> this);
-=======
-    void clear(@GuardSatisfied @OwningCollectionWithoutObligation List<E> this);
->>>>>>> ffce08c2bfe (add co annos for collection and list)
+    void clear(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation List<E> this);
 
 
     // Comparison and hashing
@@ -714,16 +685,7 @@ public interface List<E extends @MustCallUnknown Object> extends Collection<E> {
      *         ({@code index < 0 || index >= size()})
      */
     @ReleasesNoLocks
-<<<<<<< HEAD
-<<<<<<< HEAD
-    E remove(@GuardSatisfied @CanShrink List<E> this, @IndexFor({"this"}) int index);
-=======
-    E remove(@GuardSatisfied @NotOwningCollection List<E> this, @IndexFor({"this"}) int index);
->>>>>>> ffce08c2bfe (add co annos for collection and list)
-
-=======
-    E remove(@GuardSatisfied @Shrinkable @OwningCollection List<E> this, @IndexFor({"this"}) int index);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    E remove(@GuardSatisfied @CanShrink @OwningCollection List<E> this, @IndexFor({"this"}) int index);
 
     // Search Operations
 

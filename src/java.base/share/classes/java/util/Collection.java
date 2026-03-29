@@ -25,31 +25,12 @@
 
 package java.util;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import org.checkerframework.checker.index.qual.CanShrink;
-=======
-import org.checkerframework.checker.collectionownership.NotOwningCollection;
->>>>>>> 2b5c3b69f6a (size() can be called on @NotOwningCollection)
-=======
-=======
 import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
->>>>>>> ffce08c2bfe (add co annos for collection and list)
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
-<<<<<<< HEAD
->>>>>>> 3c5510c4439 (allow some methods to be called on @NotOwningCollection)
-=======
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 0d8f824b532 (collection#add and list#add require receiver to be at most @OwningCollection)
-=======
-=======
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
->>>>>>> ffce08c2bfe (add co annos for collection and list)
 import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
->>>>>>> f039c2db84a (make iterator() @PolyOwningCollection)
+import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -356,15 +337,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @return an {@code Iterator} over the elements in this collection
      */
     @SideEffectFree
-<<<<<<< HEAD
-<<<<<<< HEAD
-    @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty Collection<E> this);
-=======
-    @PolyNonEmpty Iterator<E> iterator(@PolyNonEmpty @OwningCollection Collection<E> this);
->>>>>>> 70873de438e (Collection#add takes ownership of argument)
-=======
-    @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyNonEmpty @PolyOwningCollection Collection<E> this);
->>>>>>> f039c2db84a (make iterator() @PolyOwningCollection)
+    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Collection<E> this);
 
     /**
      * Returns an array containing all of the elements in this collection.
@@ -547,12 +520,8 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @throws UnsupportedOperationException if the {@code remove} operation
      *         is not supported by this collection
      */
-<<<<<<< HEAD
+    @EnsuresNonNullIf(expression = "#1", result = true)
     boolean remove(@GuardSatisfied @CanShrink Collection<E> this, @UnknownSignedness Object o);
-=======
-    @EnsuresNonNullIf(expression = "#1", result=true)
-    boolean remove(@GuardSatisfied Collection<E> this, @UnknownSignedness Object o);
->>>>>>> ffce08c2bfe (add co annos for collection and list)
 
 
     // Bulk Operations
@@ -698,11 +667,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this collection
      */
-<<<<<<< HEAD
-    void clear(@GuardSatisfied @CanShrink Collection<E> this);
-=======
-    void clear(@GuardSatisfied @OwningCollectionWithoutObligation Collection<E> this);
->>>>>>> ffce08c2bfe (add co annos for collection and list)
+    void clear(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Collection<E> this);
 
 
     // Comparison and hashing

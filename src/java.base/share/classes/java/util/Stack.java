@@ -96,11 +96,7 @@ public class Stack<E extends @MustCallUnknown Object> extends Vector<E> {
      *          of the {@code Vector} object).
      * @throws  EmptyStackException  if this stack is empty.
      */
-<<<<<<< HEAD
-    public synchronized E pop(@GuardSatisfied @NonEmpty @CanShrink Stack<E> this) {
-=======
-    public synchronized E pop(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Stack<E> this) {
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    public synchronized E pop(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Stack<E> this) {
         E       obj;
         int     len = size();
 

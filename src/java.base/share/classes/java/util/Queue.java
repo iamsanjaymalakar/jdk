@@ -202,11 +202,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-<<<<<<< HEAD
-    E remove(@GuardSatisfied @NonEmpty @CanShrink Queue<E> this);
-=======
-    E remove(@GuardSatisfied @NotOwningCollection @NonEmpty @Shrinkable Queue<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    E remove(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Queue<E> this);
 
     /**
      * Retrieves and removes the head of this queue,
@@ -214,11 +210,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-<<<<<<< HEAD
-    @Nullable E poll(@GuardSatisfied @CanShrink Queue<E> this);
-=======
-    @Nullable E poll(@GuardSatisfied @NotOwningCollection @Shrinkable Queue<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
+    @Nullable E poll(@GuardSatisfied @NotOwningCollection @CanShrink Queue<E> this);
 
     /**
      * Retrieves, but does not remove, the head of this queue.  This method
@@ -236,15 +228,11 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-<<<<<<< HEAD
-    @Nullable E peek();
-=======
-    @Nullable  @NotOwning E peek(@GuardSatisfied @NotOwningCollection Queue<E> this);
+    @Nullable @NotOwning E peek(@GuardSatisfied @NotOwningCollection Queue<E> this);
 
     @CFComment("Copied from Collection to make it annotatable")
     @Pure
     // @EnsuresNonNullIf(expression={"poll()", "peek()"}, result=true)
     @EnsuresNonEmptyIf(result = false, expression = "this")
     boolean isEmpty(@GuardSatisfied @NotOwningCollection Queue<E> this);
->>>>>>> 0e10b632c5d (Changes in annotations.)
 }

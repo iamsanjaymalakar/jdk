@@ -24,6 +24,7 @@
  */
 package java.lang;
 
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
@@ -77,7 +78,8 @@ public interface Iterable<T extends @MustCallUnknown Object> {
      * @throws NullPointerException if the specified action is null
      * @since 1.8
      */
-    default void forEach(@NonLeaked Consumer<? super T> action) {
+    default void forEach(
+            @NotOwningCollection Iterable<T> this, @NonLeaked Consumer<? super T> action) {
         Objects.requireNonNull(action);
         for (T t : this) {
             action.accept(t);

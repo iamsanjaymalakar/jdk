@@ -50,6 +50,7 @@ import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
@@ -419,7 +420,6 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      *         runtime component type} of the specified array
      * @throws NullPointerException if the specified array is null
      */
-    @SideEffectFree
     <T extends @UnknownSignedness Object> @Nullable T [] toArray(@NotOwningCollection Collection<E> this, @PolyNull T[] a);
 
     /**
@@ -498,6 +498,8 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean add(@GuardSatisfied @NotOwningCollection Collection<E> this, E e);
 
     /**
@@ -521,6 +523,8 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      *         is not supported by this collection
      */
     @EnsuresNonNullIf(expression = "#1", result = true)
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean remove(@GuardSatisfied @CanShrink Collection<E> this, @UnknownSignedness Object o);
 
 
@@ -574,6 +578,8 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @see #add(Object)
      */
     @CreatesCollectionObligation
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean addAll(@GuardSatisfied @OwningCollection Collection<E> this, @OwningCollection Collection<@MustCallUnknown ? extends @MustCallUnknown E> c);
 
     /**
@@ -599,6 +605,8 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean removeAll(@GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
@@ -623,6 +631,8 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      *         supported.
      * @since 1.8
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     default boolean removeIf(@CanShrink Collection<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         boolean removed = false;
@@ -658,6 +668,8 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean retainAll(@GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
@@ -667,6 +679,8 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this collection
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     void clear(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Collection<E> this);
 
 
@@ -797,6 +811,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @return a sequential {@code Stream} over the elements in this collection
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default @PolyNonEmpty Stream<E> stream(@NotOwningCollection @PolyNonEmpty Collection<E> this) {
         return StreamSupport.stream(spliterator(), false);
     }
@@ -818,6 +833,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * collection
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default Stream<E> parallelStream() {
         return StreamSupport.stream(spliterator(), true);
     }

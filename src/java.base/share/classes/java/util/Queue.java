@@ -35,11 +35,11 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
-import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
@@ -52,6 +52,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 /**
  * A collection designed for holding elements prior to processing.
@@ -175,6 +176,8 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean add(@GuardSatisfied @NotOwningCollection Queue<E> this, E e);
 
     /**
@@ -195,6 +198,8 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *         prevents it from being added to this queue
      */
     @CreatesCollectionObligation
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean offer(@GuardSatisfied @NotOwningCollection Queue<E> this, E e);
 
     /**
@@ -205,6 +210,8 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     E remove(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Queue<E> this);
 
     /**
@@ -213,6 +220,8 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     @Nullable E poll(@GuardSatisfied @NotOwningCollection @CanShrink Queue<E> this);
 
     /**
@@ -223,6 +232,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
+    @Pure
     @NotOwning E element(@GuardSatisfied @NotOwningCollection @NonEmpty Queue<E> this);
 
     /**
@@ -231,6 +241,9 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
+    @Pure
     @Nullable @NotOwning E peek(@GuardSatisfied @NotOwningCollection Queue<E> this);
 
     @CFComment("Copied from Collection to make it annotatable")

@@ -40,6 +40,7 @@ import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 /**
  * The {@code Stack} class represents a last-in-first-out
@@ -82,6 +83,8 @@ public class Stack<E extends @MustCallUnknown Object> extends Vector<E> {
      * @return  the {@code item} argument.
      * @see     java.util.Vector#addElement
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E push(@GuardSatisfied @OwningCollection Stack<E> this, @Owning E item) {
         addElement(item);
 
@@ -96,6 +99,8 @@ public class Stack<E extends @MustCallUnknown Object> extends Vector<E> {
      *          of the {@code Vector} object).
      * @throws  EmptyStackException  if this stack is empty.
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized E pop(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Stack<E> this) {
         E       obj;
         int     len = size();

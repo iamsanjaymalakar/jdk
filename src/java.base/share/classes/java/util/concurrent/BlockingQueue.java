@@ -39,9 +39,9 @@ import org.checkerframework.checker.collectionownership.qual.CreatesCollectionOb
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.index.qual.CanShrink;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
-import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -50,6 +50,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.util.Collection;
 import java.util.Queue;
@@ -214,6 +215,8 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean add(@GuardSatisfied @NotOwningCollection BlockingQueue<E> this, E e);
 
     /**
@@ -234,6 +237,8 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      *         element prevents it from being added to this queue
      */
     @CreatesCollectionObligation
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean offer(@GuardSatisfied @NotOwningCollection BlockingQueue<E> this, E e);
 
     /**
@@ -249,6 +254,8 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      *         element prevents it from being added to this queue
      */
     @CreatesCollectionObligation
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     void put(@NotOwningCollection BlockingQueue<E> this, E e) throws InterruptedException;
 
     /**
@@ -269,6 +276,8 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean offer(E e, long timeout, TimeUnit unit)
         throws InterruptedException;
 
@@ -279,6 +288,8 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      * @return the head of this queue
      * @throws InterruptedException if interrupted while waiting
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     E take(@NotOwningCollection BlockingQueue<E> this) throws InterruptedException;
 
     /**
@@ -293,6 +304,8 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      *         specified waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     @Nullable E poll(long timeout, TimeUnit unit)
         throws InterruptedException;
 
@@ -327,6 +340,8 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      * @throws NullPointerException if the specified element is null
      * (<a href="{@docRoot}/java.base/java/util/Collection.html#optional-restrictions">optional</a>)
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean remove(@CanShrink @OwningCollectionWithoutObligation BlockingQueue<E> this, @UnknownSignedness Object o);
 
     /**
@@ -369,6 +384,8 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      *         queue, or some property of an element of this queue prevents
      *         it from being added to the specified collection
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     int drainTo(@GuardSatisfied @CanShrink BlockingQueue<E> this, Collection<? super E> c);
 
     /**
@@ -394,5 +411,7 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      *         queue, or some property of an element of this queue prevents
      *         it from being added to the specified collection
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     int drainTo(@GuardSatisfied @CanShrink BlockingQueue<E> this, Collection<? super E> c, int maxElements);
 }

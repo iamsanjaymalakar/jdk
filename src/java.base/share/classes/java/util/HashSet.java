@@ -30,18 +30,19 @@ import org.checkerframework.checker.collectionownership.qual.NotOwningCollection
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
-import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.io.InvalidObjectException;
 import jdk.internal.access.SharedSecrets;
@@ -250,9 +251,10 @@ public class HashSet<E extends @MustCallUnknown Object>
      * @return {@code true} if this set did not already contain the specified
      * element
      */
-    @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@GuardSatisfied @NotOwningCollection HashSet<E> this, E e) {
         return map.put(e, PRESENT)==null;
     }
@@ -269,7 +271,8 @@ public class HashSet<E extends @MustCallUnknown Object>
      * @param o object to be removed from this set, if present
      * @return {@code true} if the set contained the specified element
      */
-    @SideEffectsOnly("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return map.remove(o)==PRESENT;
     }
@@ -278,7 +281,8 @@ public class HashSet<E extends @MustCallUnknown Object>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    @SideEffectsOnly("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void clear(@GuardSatisfied HashSet<E> this) {
         map.clear();
     }
@@ -398,11 +402,13 @@ public class HashSet<E extends @MustCallUnknown Object>
      * @return a {@code Spliterator} over the elements in this set
      * @since 1.8
      */
+    @SideEffectFree
     public Spliterator<E> spliterator() {
         return new HashMap.KeySpliterator<>(map, 0, -1, 0, 0);
     }
 
     @Override
+    @SideEffectFree
     public Object[] toArray() {
         return map.keysToArray(new Object[map.size()]);
     }

@@ -432,7 +432,6 @@ public class ArrayList<E extends @MustCallUnknown Object> extends AbstractList<E
      *         this list
      * @throws NullPointerException if the specified array is null
      */
-    @SideEffectFree
     @SuppressWarnings("unchecked")
     public <T> @Nullable T[] toArray(@PolyNull T[] a) {
         if (a.length < size)

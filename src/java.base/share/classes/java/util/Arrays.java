@@ -4325,7 +4325,6 @@ public final class Arrays {
             return Arrays.copyOf(a, a.length, Object[].class);
         }
 
-        @SideEffectFree
         @Override
         @SuppressWarnings("unchecked")
         public <T> T[] toArray(T[] a) {

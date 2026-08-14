@@ -51,8 +51,9 @@ import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.io.Serializable;
 import java.util.function.Consumer;
@@ -302,6 +303,9 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @param e the element to add
      * @throws NullPointerException if the specified element is null
      */
+    @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void addFirst(@GuardSatisfied ArrayDeque<E> this, E e) {
         if (e == null)
             throw new NullPointerException();
@@ -319,6 +323,9 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @param e the element to add
      * @throws NullPointerException if the specified element is null
      */
+    @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void addLast(@GuardSatisfied ArrayDeque<E> this, E e) {
         if (e == null)
             throw new NullPointerException();
@@ -338,6 +345,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean addAll(Collection<? extends E> c) {
         final int s, needed;
         if ((needed = (s = size()) + c.size() + 1 - elements.length) > 0)
@@ -357,6 +366,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @return {@code true} (as specified by {@link Deque#offerFirst})
      * @throws NullPointerException if the specified element is null
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean offerFirst(E e) {
         addFirst(e);
         return true;
@@ -369,6 +380,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @return {@code true} (as specified by {@link Deque#offerLast})
      * @throws NullPointerException if the specified element is null
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean offerLast(E e) {
         addLast(e);
         return true;
@@ -377,6 +390,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeFirst(@GuardSatisfied @NonEmpty @CanShrink ArrayDeque<E> this) {
         E e = pollFirst();
         if (e == null)
@@ -387,6 +402,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeLast(@GuardSatisfied @NonEmpty @CanShrink ArrayDeque<E> this) {
         E e = pollLast();
         if (e == null)
@@ -394,6 +411,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
         return e;
     }
 
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollFirst(@GuardSatisfied @CanShrink ArrayDeque<E> this) {
         final Object[] es;
         final int h;
@@ -405,6 +424,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
         return e;
     }
 
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollLast(@GuardSatisfied @CanShrink ArrayDeque<E> this) {
         final Object[] es;
         final int t;
@@ -417,6 +438,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @EnsuresNonEmpty("this")
+    @Pure
     public E getFirst(@GuardSatisfied @NonEmpty ArrayDeque<E> this) {
         E e = elementAt(elements, head);
         if (e == null)
@@ -427,6 +450,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @EnsuresNonEmpty("this")
+    @Pure
     public E getLast(@GuardSatisfied @NonEmpty ArrayDeque<E> this) {
         final Object[] es = elements;
         E e = elementAt(es, dec(tail, es.length));
@@ -458,6 +483,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @param o element to be removed from this deque, if present
      * @return {@code true} if the deque contained the specified element
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeFirstOccurrence(@GuardSatisfied @CanShrink ArrayDeque<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         if (o != null) {
             final Object[] es = elements;
@@ -486,6 +513,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @param o element to be removed from this deque, if present
      * @return {@code true} if the deque contained the specified element
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeLastOccurrence(@GuardSatisfied @CanShrink ArrayDeque<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         if (o != null) {
             final Object[] es = elements;
@@ -514,6 +543,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @throws NullPointerException if the specified element is null
      */
     @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@GuardSatisfied ArrayDeque<E> this, E e) {
         addLast(e);
         return true;
@@ -528,6 +559,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @return {@code true} (as specified by {@link Queue#offer})
      * @throws NullPointerException if the specified element is null
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean offer(@GuardSatisfied ArrayDeque<E> this, E e) {
         return offerLast(e);
     }
@@ -543,6 +576,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E remove(@GuardSatisfied @NonEmpty @CanShrink ArrayDeque<E> this) {
         return removeFirst();
     }
@@ -557,6 +592,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @return the head of the queue represented by this deque, or
      *         {@code null} if this deque is empty
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E poll(@GuardSatisfied @CanShrink ArrayDeque<E> this) {
         return pollFirst();
     }
@@ -571,6 +608,7 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @Pure
     public E element(@GuardSatisfied @NonEmpty ArrayDeque<E> this) {
         return getFirst();
     }
@@ -600,6 +638,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @param e the element to push
      * @throws NullPointerException if the specified element is null
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void push(@GuardSatisfied ArrayDeque<E> this, E e) {
         addFirst(e);
     }
@@ -614,6 +654,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      *         of the stack represented by this deque)
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E pop(@GuardSatisfied @NonEmpty @CanShrink ArrayDeque<E> this) {
         return removeFirst();
     }
@@ -725,7 +767,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
             return remaining > 0;
         }
 
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E next(@NonEmpty DeqIterator this) {
             if (remaining <= 0)
                 throw new NoSuchElementException();
@@ -741,6 +784,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
                 cursor = dec(cursor, elements.length);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public final void remove() {
             if (lastRet < 0)
                 throw new IllegalStateException();
@@ -774,6 +819,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
     private class DescendingIterator extends DeqIterator {
         DescendingIterator() { cursor = dec(tail, elements.length); }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public final E next(@NonEmpty DescendingIterator this) {
             if (remaining <= 0)
                 throw new NoSuchElementException();
@@ -826,6 +873,7 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @return a {@code Spliterator} over the elements in this deque
      * @since 1.8
      */
+    @SideEffectFree
     public Spliterator<E> spliterator() {
         return new DeqSpliterator();
     }
@@ -929,6 +977,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
     /**
      * @throws NullPointerException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeIf(@CanShrink ArrayDeque<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         return bulkRemove(filter);
@@ -937,6 +987,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
     /**
      * @throws NullPointerException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeAll(@CanShrink ArrayDeque<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
@@ -945,6 +997,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
     /**
      * @throws NullPointerException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean retainAll(@GuardSatisfied @CanShrink ArrayDeque<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));
@@ -1061,6 +1115,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @param o element to be removed from this deque, if present
      * @return {@code true} if this deque contained the specified element
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@GuardSatisfied @CanShrink ArrayDeque<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return removeFirstOccurrence(o);
     }
@@ -1069,6 +1125,8 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * Removes all of the elements from this deque.
      * The deque will be empty after this call returns.
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void clear(@GuardSatisfied @CanShrink ArrayDeque<E> this) {
         circularClear(elements, head, tail);
         head = tail = 0;
@@ -1159,7 +1217,6 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      *         this deque
      * @throws NullPointerException if the specified array is null
      */
-    @SideEffectFree
     @SuppressWarnings("unchecked")
     public <T> @Nullable T[] toArray(@PolyNull T[] a) {
         final int size;

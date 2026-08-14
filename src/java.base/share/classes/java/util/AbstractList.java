@@ -40,9 +40,10 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.util.function.Consumer;
 
@@ -132,6 +133,8 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
      *         prevents it from being added to this list
      */
     @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@GuardSatisfied AbstractList<E> this, E e) {
         add(size(), e);
         return true;
@@ -158,6 +161,9 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
+    @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E set(@GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
@@ -175,6 +181,9 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
+    @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void add(@GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
@@ -189,6 +198,8 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
      * @throws UnsupportedOperationException {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E remove(@GuardSatisfied @CanShrink AbstractList<E> this, @IndexFor({"this"}) int index) {
         throw new UnsupportedOperationException();
     }
@@ -267,6 +278,8 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void clear(@GuardSatisfied @CanShrink AbstractList<E> this) {
         removeRange(0, size());
     }
@@ -291,6 +304,8 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean addAll(@GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
         rangeCheckForAdd(index);
         boolean modified = false;
@@ -395,7 +410,8 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             return cursor != size();
         }
 
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E next(@NonEmpty Itr this) {
             checkForComodification();
             try {
@@ -410,6 +426,8 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             }
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void remove() {
             if (lastRet < 0)
                 throw new IllegalStateException();
@@ -437,6 +455,7 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             cursor = index;
         }
 
+        @Pure
         public boolean hasPrevious() {
             return cursor != 0;
         }
@@ -454,14 +473,18 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             }
         }
 
+        @Pure
         public int nextIndex() {
             return cursor;
         }
 
+        @Pure
         public int previousIndex() {
             return cursor-1;
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void set(E e) {
             if (lastRet < 0)
                 throw new IllegalStateException();
@@ -475,6 +498,9 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             }
         }
 
+        @EnsuresNonEmpty("this")
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void add(E e) {
             checkForComodification();
 
@@ -626,6 +652,8 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
      * @param fromIndex index of first element to be removed
      * @param toIndex index after last element to be removed
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     protected void removeRange(@GuardSatisfied @CanShrink AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
         ListIterator<E> it = listIterator(fromIndex);
         for (int i=0, n=toIndex-fromIndex; i<n; i++) {
@@ -765,6 +793,7 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             return Spliterator.ORDERED | Spliterator.SIZED | Spliterator.SUBSIZED;
         }
 
+        @Pure
         private static <E> E get(List<E> list, int i) {
             try {
                 return list.get(i);
@@ -809,12 +838,16 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             this.modCount = root.modCount;
         }
 
+        @EnsuresNonEmpty("this")
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E set(int index, E element) {
             Objects.checkIndex(index, size);
             checkForComodification();
             return root.set(offset + index, element);
         }
 
+        @Pure
         public E get(int index) {
             Objects.checkIndex(index, size);
             checkForComodification();
@@ -827,6 +860,9 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             return size;
         }
 
+        @EnsuresNonEmpty("this")
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void add(int index, E element) {
             rangeCheckForAdd(index);
             checkForComodification();
@@ -834,6 +870,8 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             updateSizeAndModCount(1);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E remove(int index) {
             Objects.checkIndex(index, size);
             checkForComodification();
@@ -848,10 +886,14 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             updateSizeAndModCount(fromIndex - toIndex);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean addAll(Collection<? extends E> c) {
             return addAll(size, c);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean addAll(int index, Collection<? extends E> c) {
             rangeCheckForAdd(index);
             int cSize = c.size();
@@ -863,6 +905,7 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             return true;
         }
 
+        @SideEffectFree
         public Iterator<E> iterator() {
             return listIterator();
         }
@@ -881,7 +924,8 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
                     return nextIndex() < size;
                 }
 
-                @SideEffectsOnly("this")
+                // @SideEffectsOnly("this")
+                @DoesNotUnrefineReceiver("modifiability")
                 public E next(/*@NonEmpty ListIterator<E> this*/) {
                     if (hasNext())
                         return i.next();
@@ -894,7 +938,7 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
                     return previousIndex() >= 0;
                 }
 
-                @SideEffectsOnly("this")
+                // @SideEffectsOnly("this")
                 public E previous() {
                     if (hasPrevious())
                         return i.previous();
@@ -912,15 +956,22 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
                     return i.previousIndex() - offset;
                 }
 
+                // @SideEffectsOnly("this")
+                @DoesNotUnrefineReceiver("modifiability")
                 public void remove() {
                     i.remove();
                     updateSizeAndModCount(-1);
                 }
 
+                // @SideEffectsOnly("this")
+                @DoesNotUnrefineReceiver("modifiability")
                 public void set(E e) {
                     i.set(e);
                 }
 
+                @EnsuresNonEmpty("this")
+                // @SideEffectsOnly("this")
+                @DoesNotUnrefineReceiver("modifiability")
                 public void add(E e) {
                     i.add(e);
                     updateSizeAndModCount(1);
@@ -928,6 +979,7 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             };
         }
 
+        @SideEffectFree
         public List<E> subList(int fromIndex, int toIndex) {
             subListRangeCheck(fromIndex, toIndex, size);
             return new SubList<>(this, fromIndex, toIndex);
@@ -977,6 +1029,7 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
             super(parent, fromIndex, toIndex);
         }
 
+        @SideEffectFree
         public List<E> subList(int fromIndex, int toIndex) {
             subListRangeCheck(fromIndex, toIndex, size);
             return new RandomAccessSubList<>(this, fromIndex, toIndex);

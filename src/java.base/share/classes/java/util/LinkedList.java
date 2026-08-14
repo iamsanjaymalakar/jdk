@@ -42,9 +42,10 @@ import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -272,6 +273,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return the first element in this list
      * @throws NoSuchElementException if this list is empty
      */
+    @EnsuresNonEmpty("this")
+    @Pure
     public E getFirst(@GuardSatisfied @NonEmpty LinkedList<E> this) {
         final Node<E> f = first;
         if (f == null)
@@ -285,6 +288,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return the last element in this list
      * @throws NoSuchElementException if this list is empty
      */
+    @EnsuresNonEmpty("this")
+    @Pure
     public E getLast(@GuardSatisfied @NonEmpty LinkedList<E> this) {
         final Node<E> l = last;
         if (l == null)
@@ -298,6 +303,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return the first element from this list
      * @throws NoSuchElementException if this list is empty
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeFirst(@GuardSatisfied @NonEmpty @CanShrink LinkedList<E> this) {
         final Node<E> f = first;
         if (f == null)
@@ -311,6 +318,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return the last element from this list
      * @throws NoSuchElementException if this list is empty
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeLast(@GuardSatisfied @NonEmpty @CanShrink LinkedList<E> this) {
         final Node<E> l = last;
         if (l == null)
@@ -323,6 +332,9 @@ public class LinkedList<E extends @MustCallUnknown Object>
      *
      * @param e the element to add
      */
+    @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void addFirst(@GuardSatisfied LinkedList<E> this, E e) {
         linkFirst(e);
     }
@@ -334,6 +346,9 @@ public class LinkedList<E extends @MustCallUnknown Object>
      *
      * @param e the element to add
      */
+    @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void addLast(@GuardSatisfied LinkedList<E> this, E e) {
         linkLast(e);
     }
@@ -373,6 +388,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      */
     @ReleasesNoLocks
     @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@GuardSatisfied LinkedList<E> this, E e) {
         linkLast(e);
         return true;
@@ -392,6 +409,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return {@code true} if this list contained the specified element
      */
     @ReleasesNoLocks
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@GuardSatisfied @CanShrink LinkedList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         if (o == null) {
             for (Node<E> x = first; x != null; x = x.next) {
@@ -423,6 +442,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return {@code true} if this list changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean addAll(@GuardSatisfied LinkedList<E> this, Collection<? extends E> c) {
         return addAll(size, c);
     }
@@ -442,6 +463,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @throws NullPointerException if the specified collection is null
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean addAll(@GuardSatisfied LinkedList<E> this, @NonNegative int index, Collection<? extends E> c) {
         checkPositionIndex(index);
 
@@ -485,6 +508,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * Removes all of the elements from this list.
      * The list will be empty after this call returns.
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void clear(@GuardSatisfied @CanShrink LinkedList<E> this) {
         // Clearing all of the links between nodes is "unnecessary", but:
         // - helps a generational GC if the discarded nodes inhabit
@@ -527,6 +552,9 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return the element previously at the specified position
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
+    @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E set(@GuardSatisfied LinkedList<E> this, @NonNegative int index, E element) {
         checkElementIndex(index);
         Node<E> x = node(index);
@@ -544,6 +572,9 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @param element element to be inserted
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
+    @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void add(@GuardSatisfied LinkedList<E> this, @NonNegative int index, E element) {
         checkPositionIndex(index);
 
@@ -562,6 +593,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return the element previously at the specified position
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E remove(@GuardSatisfied @CanShrink LinkedList<E> this, @NonNegative int index) {
         checkElementIndex(index);
         return unlink(node(index));
@@ -703,6 +736,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @throws NoSuchElementException if this list is empty
      * @since 1.5
      */
+    @Pure
     public E element(@GuardSatisfied @NonEmpty LinkedList<E> this) {
         return getFirst();
     }
@@ -713,6 +747,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return the head of this list, or {@code null} if this list is empty
      * @since 1.5
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E poll(@GuardSatisfied @CanShrink LinkedList<E> this) {
         final Node<E> f = first;
         return (f == null) ? null : unlinkFirst(f);
@@ -725,6 +761,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @throws NoSuchElementException if this list is empty
      * @since 1.5
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E remove(@GuardSatisfied @NonEmpty @CanShrink LinkedList<E> this) {
         return removeFirst();
     }
@@ -736,6 +774,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return {@code true} (as specified by {@link Queue#offer})
      * @since 1.5
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean offer(E e) {
         return add(e);
     }
@@ -748,6 +788,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return {@code true} (as specified by {@link Deque#offerFirst})
      * @since 1.6
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean offerFirst(E e) {
         addFirst(e);
         return true;
@@ -760,6 +802,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return {@code true} (as specified by {@link Deque#offerLast})
      * @since 1.6
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean offerLast(E e) {
         addLast(e);
         return true;
@@ -801,6 +845,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      *     this list is empty
      * @since 1.6
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollFirst(@GuardSatisfied @CanShrink LinkedList<E> this) {
         final Node<E> f = first;
         return (f == null) ? null : unlinkFirst(f);
@@ -814,6 +860,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      *     this list is empty
      * @since 1.6
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollLast(@GuardSatisfied @CanShrink LinkedList<E> this) {
         final Node<E> l = last;
         return (l == null) ? null : unlinkLast(l);
@@ -828,6 +876,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @param e the element to push
      * @since 1.6
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public void push(@GuardSatisfied LinkedList<E> this, E e) {
         addFirst(e);
     }
@@ -843,6 +893,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @throws NoSuchElementException if this list is empty
      * @since 1.6
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E pop(@GuardSatisfied @NonEmpty @CanShrink LinkedList<E> this) {
         return removeFirst();
     }
@@ -856,6 +908,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return {@code true} if the list contained the specified element
      * @since 1.6
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeFirstOccurrence(@GuardSatisfied @CanShrink LinkedList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return remove(o);
     }
@@ -869,6 +923,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @return {@code true} if the list contained the specified element
      * @since 1.6
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeLastOccurrence(@GuardSatisfied @CanShrink LinkedList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         if (o == null) {
             for (Node<E> x = last; x != null; x = x.prev) {
@@ -932,7 +988,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
             return nextIndex < size;
         }
 
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E next(@NonEmpty ListItr this) {
             checkForComodification();
             if (!hasNext())
@@ -944,10 +1001,13 @@ public class LinkedList<E extends @MustCallUnknown Object>
             return lastReturned.item;
         }
 
+        @Pure
         public boolean hasPrevious() {
             return nextIndex > 0;
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E previous() {
             checkForComodification();
             if (!hasPrevious())
@@ -958,14 +1018,18 @@ public class LinkedList<E extends @MustCallUnknown Object>
             return lastReturned.item;
         }
 
+        @Pure
         public int nextIndex() {
             return nextIndex;
         }
 
+        @Pure
         public int previousIndex() {
             return nextIndex - 1;
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void remove() {
             checkForComodification();
             if (lastReturned == null)
@@ -981,6 +1045,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
             expectedModCount++;
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void set(E e) {
             if (lastReturned == null)
                 throw new IllegalStateException();
@@ -988,6 +1054,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
             lastReturned.item = e;
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void add(E e) {
             checkForComodification();
             lastReturned = null;
@@ -1045,10 +1113,13 @@ public class LinkedList<E extends @MustCallUnknown Object>
         public boolean hasNext() {
             return itr.hasPrevious();
         }
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E next(@NonEmpty DescendingIterator this) {
             return itr.previous();
         }
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void remove() {
             itr.remove();
         }
@@ -1146,7 +1217,6 @@ public class LinkedList<E extends @MustCallUnknown Object>
      *         this list
      * @throws NullPointerException if the specified array is null
      */
-    @SideEffectFree
     @SuppressWarnings("unchecked")
     public <T> @Nullable T[] toArray(@PolyNull T[] a) {
         if (a.length < size)
@@ -1345,22 +1415,29 @@ public class LinkedList<E extends @MustCallUnknown Object>
             this.rdeque = rdeque;
         }
 
+        @SideEffectFree
         public String toString() {
             return rlist.toString();
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean retainAll(Collection<?> c) {
             return rlist.retainAll(c);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean removeAll(Collection<?> c) {
             return rlist.removeAll(c);
         }
 
+        @Pure
         public boolean containsAll(Collection<?> c) {
             return rlist.containsAll(c);
         }
 
+        @Pure
         public boolean isEmpty() {
             return rlist.isEmpty();
         }
@@ -1373,6 +1450,8 @@ public class LinkedList<E extends @MustCallUnknown Object>
             return rlist.stream();
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean removeIf(Predicate<? super E> filter) {
             return rlist.removeIf(filter);
         }
@@ -1385,18 +1464,22 @@ public class LinkedList<E extends @MustCallUnknown Object>
             rlist.forEach(action);
         }
 
+        @SideEffectFree
         public Iterator<E> iterator() {
             return rlist.iterator();
         }
 
+        @Pure
         public int hashCode() {
             return rlist.hashCode();
         }
 
+        @Pure
         public boolean equals(Object o) {
             return rlist.equals(o);
         }
 
+        @SideEffectFree
         public List<E> subList(int fromIndex, int toIndex) {
             return rlist.subList(fromIndex, toIndex);
         }
@@ -1405,10 +1488,13 @@ public class LinkedList<E extends @MustCallUnknown Object>
             return rlist.listIterator();
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void sort(Comparator<? super E> c) {
             rlist.sort(c);
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void replaceAll(UnaryOperator<E> operator) {
             rlist.replaceAll(operator);
         }
@@ -1417,6 +1503,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
             return list;
         }
 
+        @SideEffectFree
         public Spliterator<E> spliterator() {
             return rlist.spliterator();
         }
@@ -1425,6 +1512,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
             return rlist.toArray(a);
         }
 
+        @SideEffectFree
         public Object[] toArray() {
             return rlist.toArray();
         }
@@ -1437,138 +1525,196 @@ public class LinkedList<E extends @MustCallUnknown Object>
             return rlist.listIterator(index);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean removeLastOccurrence(Object o) {
             return rdeque.removeLastOccurrence(o);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean removeFirstOccurrence(Object o) {
             return rdeque.removeFirstOccurrence(o);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E pop() {
             return rdeque.pop();
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void push(E e) {
             rdeque.push(e);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E pollLast() {
             return rdeque.pollLast();
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E pollFirst() {
             return rdeque.pollFirst();
         }
 
+        @Pure
         public E peekLast() {
             return rdeque.peekLast();
         }
 
+        @Pure
         public E peekFirst() {
             return rdeque.peekFirst();
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean offerLast(E e) {
             return rdeque.offerLast(e);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean offerFirst(E e) {
             return rdeque.offerFirst(e);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean offer(E e) {
             return rdeque.offer(e);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E remove() {
             return rdeque.remove();
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E poll() {
             return rdeque.poll();
         }
 
+        @Pure
         public E element() {
             return rdeque.element();
         }
 
+        @Pure
         public E peek() {
             return rdeque.peek();
         }
 
+        @Pure
         public int lastIndexOf(Object o) {
             return rlist.lastIndexOf(o);
         }
 
+        @Pure
         public int indexOf(Object o) {
             return rlist.indexOf(o);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E remove(int index) {
             return rlist.remove(index);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void add(int index, E element) {
             rlist.add(index, element);
         }
 
+        @EnsuresNonEmpty("this")
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E set(int index, E element) {
             return rlist.set(index, element);
         }
 
+        @Pure
         public E get(int index) {
             return rlist.get(index);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void clear() {
             rlist.clear();
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean addAll(int index, Collection<? extends E> c) {
             return rlist.addAll(index, c);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean addAll(Collection<? extends E> c) {
             return rlist.addAll(c);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean remove(Object o) {
             return rlist.remove(o);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean add(E e) {
             return rlist.add(e);
         }
 
+        @Pure
         public int size() {
             return rlist.size();
         }
 
+        @Pure
         public boolean contains(Object o) {
             return rlist.contains(o);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void addLast(E e) {
             rdeque.addLast(e);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public void addFirst(E e) {
             rdeque.addFirst(e);
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E removeLast() {
             return rdeque.removeLast();
         }
 
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E removeFirst() {
             return rdeque.removeFirst();
         }
 
+        @Pure
         public E getLast() {
             return rdeque.getLast();
         }
 
+        @Pure
         public E getFirst() {
             return rdeque.getFirst();
         }

@@ -34,10 +34,11 @@ import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.dataflow.qual.Pure;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.Covariant;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.util.function.Consumer;
 
@@ -92,7 +93,8 @@ public interface Iterator<E extends @MustCallUnknown Object> {
      * @return the next element in the iteration
      * @throws NoSuchElementException if the iteration has no more elements
      */
-    @SideEffectsOnly("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     @NotOwning E next(@GuardSatisfied @NonEmpty @NotOwningCollection Iterator<E> this);
 
     /**
@@ -120,6 +122,8 @@ public interface Iterator<E extends @MustCallUnknown Object> {
      *         been called after the last call to the {@code next}
      *         method
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     default void remove(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Iterator<E> this) {
         throw new UnsupportedOperationException("remove");
     }
@@ -149,6 +153,7 @@ public interface Iterator<E extends @MustCallUnknown Object> {
      * @throws NullPointerException if the specified action is null
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default void forEachRemaining(Consumer<? super E> action) {
         Objects.requireNonNull(action);
         while (hasNext())

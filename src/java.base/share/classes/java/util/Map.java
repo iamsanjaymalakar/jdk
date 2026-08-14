@@ -48,6 +48,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.Covariant;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -225,8 +226,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      */
     @CFComment("nullness: key is not @Nullable because this map might not permit null values")
     @EnsuresKeyForIf(expression={"#1"}, result=true, map={"this"})
-    @EnsuresNonEmptyIf(result=true, expression={"this"})
     @Pure
+    @EnsuresNonEmptyIf(result=true, expression={"this"})
     boolean containsKey(@GuardSatisfied @NotOwningCollection Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key);
 
     /**
@@ -245,8 +246,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * @throws NullPointerException if the specified value is null and this
      *         map does not permit null values ({@linkplain Collection##optional-restrictions optional})
      */
-    @EnsuresNonEmptyIf(result=true, expression={"this"})
     @Pure
+    @EnsuresNonEmptyIf(result=true, expression={"this"})
     boolean containsValue(@GuardSatisfied @NotOwningCollection Map<K, V> this, @GuardSatisfied @UnknownSignedness Object value);
 
     /**
@@ -306,6 +307,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     @EnsuresNonEmpty("this")
     @NotOwning
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     @Nullable V put(@GuardSatisfied Map<K, V> this, K key, V value);
 
     /**
@@ -337,6 +340,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *         map does not permit null keys ({@linkplain Collection##optional-restrictions optional})
      */
     @CFComment("nullness: key is not @Nullable because this map might not permit null values")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     @Nullable V remove(@GuardSatisfied Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key);
 
 
@@ -363,6 +368,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * @throws IllegalArgumentException if some property of a key or value in
      *         the specified map prevents it from being stored in this map
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     void putAll(@GuardSatisfied Map<K, V> this, Map<? extends K, ? extends V> m);
 
     /**
@@ -372,6 +379,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this map
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     void clear(@GuardSatisfied Map<K, V> this);
 
 
@@ -537,6 +546,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
          *         required to, throw this exception if the entry has been
          *         removed from the backing map.
          */
+        // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         V setValue(Map.@GuardSatisfied Entry<K, V> this, V value);
 
         /**
@@ -677,6 +688,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
          * @since 17
          */
         @SuppressWarnings("unchecked")
+        @SideEffectFree
         public static <K extends @NonNull Object, V extends @NonNull Object> Map.Entry<K, V> copyOf(Map.Entry<? extends K, ? extends V> e) {
             Objects.requireNonNull(e);
             if (e instanceof KeyValueHolder) {
@@ -701,6 +713,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * @param o object to be compared for equality with this map
      * @return {@code true} if the specified object is equal to this map
      */
+    @Pure
     boolean equals(@GuardSatisfied Map<K, V> this, @GuardSatisfied @Nullable Object o);
 
     /**
@@ -716,6 +729,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * @see Object#equals(Object)
      * @see #equals(Object)
      */
+    @Pure
     int hashCode(@GuardSatisfied Map<K, V> this);
 
     // Defaultable methods
@@ -773,6 +787,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * removed during iteration
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default void forEach(@NonLeaked BiConsumer<? super K, ? super V> action) {
         Objects.requireNonNull(action);
         for (Map.Entry<K, V> entry : entrySet()) {
@@ -823,6 +838,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *         removed during iteration
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
         Objects.requireNonNull(function);
         for (Map.Entry<K, V> entry : entrySet()) {
@@ -890,6 +906,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * @since 1.8
      */
     @EnsuresKeyFor(value={"#1"}, map={"this"})
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     default @Nullable V putIfAbsent(K key, V value) {
         V v = get(key);
         if (v == null) {
@@ -934,6 +952,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * @since 1.8
      */
     @CFComment("nullness: key and value are not @Nullable because this map might not permit null values")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     default boolean remove(@GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {
         Object curValue = get(key);
         if (!Objects.equals(curValue, value) ||
@@ -984,6 +1004,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *         or value prevents it from being stored in this map
      * @since 1.8
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     default boolean replace(K key, V oldValue, V newValue) {
         Object curValue = get(key);
         if (!Objects.equals(curValue, oldValue) ||
@@ -1032,6 +1054,8 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *         or value prevents it from being stored in this map
      * @since 1.8
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     default @Nullable V replace(K key, V value) {
         V curValue;
         if (((curValue = get(key)) != null) || containsKey(key)) {
@@ -1114,6 +1138,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *         ({@linkplain Collection##optional-restrictions optional})
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default @PolyNull V computeIfAbsent(K key,
             Function<? super K, ? extends @PolyNull V> mappingFunction) {
         Objects.requireNonNull(mappingFunction);
@@ -1191,6 +1216,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *         ({@linkplain Collection##optional-restrictions optional})
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default @Nullable V computeIfPresent(K key,
             BiFunction<? super K, ? super V, ? extends @Nullable V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
@@ -1277,6 +1303,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *         ({@linkplain Collection##optional-restrictions optional})
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default @Nullable V compute(K key,
             BiFunction<? super K, ? super @Nullable V, ? extends @Nullable V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
@@ -1375,6 +1402,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *         null
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default @Nullable V merge(K key, @NonNull V value,
             BiFunction<? super V, ? super V, ? extends @Nullable V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
@@ -1401,6 +1429,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * @since 9
      */
     @SuppressWarnings("unchecked")
+    @SideEffectFree
     static <K, V> Map<K, V> of() {
         return (Map<K,V>) ImmutableCollections.EMPTY_MAP;
     }
@@ -1418,6 +1447,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *
      * @since 9
      */
+    @SideEffectFree
     static <K extends @NonNull Object, V extends @NonNull Object> @NonEmpty Map<K, V> of(K k1, V v1) {
         return new ImmutableCollections.Map1<>(k1, v1);
     }
@@ -1438,6 +1468,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *
      * @since 9
      */
+    @SideEffectFree
     static <K extends @NonNull Object, V extends @NonNull Object> @NonEmpty Map<K, V> of(K k1, V v1, K k2, V v2) {
         return new ImmutableCollections.MapN<>(k1, v1, k2, v2);
     }
@@ -1460,6 +1491,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *
      * @since 9
      */
+    @SideEffectFree
     static <K extends @NonNull Object, V extends @NonNull Object> @NonEmpty Map<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
         return new ImmutableCollections.MapN<>(k1, v1, k2, v2, k3, v3);
     }
@@ -1484,6 +1516,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *
      * @since 9
      */
+    @SideEffectFree
     static <K extends @NonNull Object, V extends @NonNull Object> @NonEmpty Map<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
         return new ImmutableCollections.MapN<>(k1, v1, k2, v2, k3, v3, k4, v4);
     }
@@ -1510,6 +1543,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      *
      * @since 9
      */
+    @SideEffectFree
     static <K extends @NonNull Object, V extends @NonNull Object> @NonEmpty Map<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
         return new ImmutableCollections.MapN<>(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5);
     }
@@ -1796,6 +1830,7 @@ public interface Map<K extends @MustCallUnknown Object, V extends @MustCallUnkno
      * @since 10
      */
     @SuppressWarnings({"rawtypes","unchecked"})
+    @SideEffectFree
     static <K extends @NonNull Object, V extends @NonNull Object> @PolyNonEmpty Map<K, V> copyOf(@PolyNonEmpty Map<? extends K, ? extends V> map) {
         if (map instanceof ImmutableCollections.AbstractImmutableMap) {
             return (Map<K,V>)map;

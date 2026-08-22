@@ -45,10 +45,10 @@ import org.checkerframework.checker.signedness.qual.Unsigned;
 import org.checkerframework.common.value.qual.MinLen;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
-// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import jdk.internal.util.ArraysSupport;
 import jdk.internal.vm.annotation.ForceInline;
@@ -123,7 +123,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(int[] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
@@ -147,7 +147,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(int[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
@@ -163,7 +163,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(long[] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
@@ -187,7 +187,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(long[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
@@ -203,7 +203,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(short[] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
@@ -227,7 +227,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(short[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
@@ -243,7 +243,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(char[] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
@@ -267,7 +267,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(char[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
@@ -283,7 +283,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(byte[] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
@@ -307,7 +307,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(byte[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
@@ -331,7 +331,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(float[] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
@@ -363,7 +363,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(float[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
@@ -387,7 +387,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(double[] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
@@ -419,7 +419,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(double[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
@@ -437,6 +437,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(byte[] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
@@ -462,6 +463,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(byte[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
@@ -479,6 +481,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(char[] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
@@ -504,6 +507,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(char[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
@@ -521,6 +525,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(short[] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
@@ -546,6 +551,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(short[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
@@ -563,6 +569,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(int[] a) {
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), 0, a.length);
     }
@@ -588,6 +595,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(int[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), fromIndex, toIndex);
@@ -605,6 +613,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(long[] a) {
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), 0, a.length);
     }
@@ -630,6 +639,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(long[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), fromIndex, toIndex);
@@ -655,6 +665,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(float[] a) {
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), 0, a.length);
     }
@@ -688,6 +699,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(float[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), fromIndex, toIndex);
@@ -713,6 +725,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(double[] a) {
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), 0, a.length);
     }
@@ -746,6 +759,7 @@ public final class Arrays {
      *
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSort(double[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), fromIndex, toIndex);
@@ -834,6 +848,7 @@ public final class Arrays {
      * @since 1.8
      */
     @SuppressWarnings("unchecked")
+    @SideEffectsOnly("#1")
     public static <T extends Comparable<? super T>> void parallelSort(T[] a) {
         int n = a.length, p, g;
         if (n <= MIN_ARRAY_SORT_GRAN ||
@@ -891,6 +906,7 @@ public final class Arrays {
      * @since 1.8
      */
     @SuppressWarnings("unchecked")
+    @SideEffectsOnly("#1")
     public static <T extends Comparable<? super T>>
     void parallelSort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -940,6 +956,7 @@ public final class Arrays {
      * @since 1.8
      */
     @SuppressWarnings("unchecked")
+    @SideEffectsOnly("#1")
     public static <T> void parallelSort(T[] a, @Nullable Comparator<? super T> cmp) {
         if (cmp == null)
             cmp = NaturalOrder.INSTANCE;
@@ -999,6 +1016,7 @@ public final class Arrays {
      * @since 1.8
      */
     @SuppressWarnings("unchecked")
+    @SideEffectsOnly("#1")
     public static <T> void parallelSort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                         Comparator<? super T> cmp) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -1076,7 +1094,7 @@ public final class Arrays {
      *         ordering of the array elements is found to violate the
      *         {@link Comparable} contract
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(@PolyInterned @PolyNull Object[] a) {
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a);
@@ -1142,7 +1160,7 @@ public final class Arrays {
      *         not <i>mutually comparable</i> (for example, strings and
      *         integers).
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static void sort(@PolyInterned @PolyNull Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         if (LegacyMergeSort.userRequested)
@@ -1267,7 +1285,7 @@ public final class Arrays {
      * @throws IllegalArgumentException (optional) if the comparator is
      *         found to violate the {@link Comparator} contract
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static <T> void sort(@PolyNull @UnknownSignedness T[] a, @Nullable Comparator<? super T> c) {
         if (c == null) {
             sort(a);
@@ -1340,7 +1358,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     public static <T> void sort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                 Comparator<? super T> c) {
         if (c == null) {
@@ -1429,6 +1447,7 @@ public final class Arrays {
      * @throws NullPointerException if the specified array or function is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static <T> void parallelPrefix(T[] array, BinaryOperator<T> op) {
         Objects.requireNonNull(op);
         if (array.length > 0)
@@ -1452,6 +1471,7 @@ public final class Arrays {
      * @throws NullPointerException if the specified array or function is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static <T> void parallelPrefix(T[] array, @IndexOrHigh({"#1"}) int fromIndex,
                                           @IndexOrHigh({"#1"}) int toIndex, BinaryOperator<T> op) {
         Objects.requireNonNull(op);
@@ -1475,6 +1495,7 @@ public final class Arrays {
      * @throws NullPointerException if the specified array or function is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelPrefix(long[] array, LongBinaryOperator op) {
         Objects.requireNonNull(op);
         if (array.length > 0)
@@ -1497,6 +1518,7 @@ public final class Arrays {
      * @throws NullPointerException if the specified array or function is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelPrefix(long[] array, @IndexOrHigh({"#1"}) int fromIndex,
                                       @IndexOrHigh({"#1"}) int toIndex, LongBinaryOperator op) {
         Objects.requireNonNull(op);
@@ -1523,6 +1545,7 @@ public final class Arrays {
      * @throws NullPointerException if the specified array or function is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelPrefix(double[] array, DoubleBinaryOperator op) {
         Objects.requireNonNull(op);
         if (array.length > 0)
@@ -1545,6 +1568,7 @@ public final class Arrays {
      * @throws NullPointerException if the specified array or function is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelPrefix(double[] array, @IndexOrHigh({"#1"}) int fromIndex,
                                       @IndexOrHigh({"#1"}) int toIndex, DoubleBinaryOperator op) {
         Objects.requireNonNull(op);
@@ -1568,6 +1592,7 @@ public final class Arrays {
      * @throws NullPointerException if the specified array or function is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelPrefix(int[] array, IntBinaryOperator op) {
         Objects.requireNonNull(op);
         if (array.length > 0)
@@ -1590,6 +1615,7 @@ public final class Arrays {
      * @throws NullPointerException if the specified array or function is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelPrefix(int[] array, @IndexOrHigh({"#1"}) int fromIndex,
                                       @IndexOrHigh({"#1"}) int toIndex, IntBinaryOperator op) {
         Objects.requireNonNull(op);
@@ -1620,6 +1646,7 @@ public final class Arrays {
      *         that this guarantees that the return value will be &gt;= 0 if
      *         and only if the key is found.
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(long[] a, long key) {
         return binarySearch0(a, 0, a.length, key);
     }
@@ -1656,6 +1683,7 @@ public final class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(long[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                    long key) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -1701,6 +1729,7 @@ public final class Arrays {
      *         that this guarantees that the return value will be &gt;= 0 if
      *         and only if the key is found.
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(int[] a, int key) {
         return binarySearch0(a, 0, a.length, key);
     }
@@ -1737,6 +1766,7 @@ public final class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(int[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                    int key) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -1782,6 +1812,7 @@ public final class Arrays {
      *         that this guarantees that the return value will be &gt;= 0 if
      *         and only if the key is found.
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(short[] a, short key) {
         return binarySearch0(a, 0, a.length, key);
     }
@@ -1818,6 +1849,7 @@ public final class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(short[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                    short key) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -1863,6 +1895,7 @@ public final class Arrays {
      *         that this guarantees that the return value will be &gt;= 0 if
      *         and only if the key is found.
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(char[] a, char key) {
         return binarySearch0(a, 0, a.length, key);
     }
@@ -1899,6 +1932,7 @@ public final class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(char[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                    char key) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -1944,6 +1978,7 @@ public final class Arrays {
      *         that this guarantees that the return value will be &gt;= 0 if
      *         and only if the key is found.
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(byte[] a, byte key) {
         return binarySearch0(a, 0, a.length, key);
     }
@@ -1980,6 +2015,7 @@ public final class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(byte[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                    byte key) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -2026,6 +2062,7 @@ public final class Arrays {
      *         that this guarantees that the return value will be &gt;= 0 if
      *         and only if the key is found.
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(double[] a, double key) {
         return binarySearch0(a, 0, a.length, key);
     }
@@ -2063,6 +2100,7 @@ public final class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(double[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                    double key) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -2117,6 +2155,7 @@ public final class Arrays {
      *         that this guarantees that the return value will be &gt;= 0 if
      *         and only if the key is found.
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(float[] a, float key) {
         return binarySearch0(a, 0, a.length, key);
     }
@@ -2154,6 +2193,7 @@ public final class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(float[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                    float key) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -2216,6 +2256,7 @@ public final class Arrays {
      * @throws ClassCastException if the search key is not comparable to the
      *         elements of the array.
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(@Nullable @PolyInterned Object[] a, @Nullable @PolyInterned Object key) {
         return binarySearch0(a, 0, a.length, key);
     }
@@ -2260,6 +2301,7 @@ public final class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
+    @SideEffectFree
     public static @SearchIndexFor({"#1"}) int binarySearch(@Nullable @PolyInterned Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                    @Nullable @PolyInterned Object key) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -2319,6 +2361,7 @@ public final class Arrays {
      *         or the search key is not comparable to the
      *         elements of the array using this comparator.
      */
+    @SideEffectFree
     public static <T> @SearchIndexFor({"#1"}) int binarySearch(T[] a, T key, @Nullable Comparator<? super T> c) {
         return binarySearch0(a, 0, a.length, key, c);
     }
@@ -2365,6 +2408,7 @@ public final class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
+    @SideEffectFree
     public static <T> @SearchIndexFor({"#1"}) int binarySearch(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                        T key, @Nullable Comparator<? super T> c) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -2454,6 +2498,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static boolean equals(long[] a, int aFromIndex, int aToIndex,
                                  long[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -2527,6 +2572,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static boolean equals(int[] a, int aFromIndex, int aToIndex,
                                  int[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -2600,6 +2646,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static boolean equals(short[] a, int aFromIndex, int aToIndex,
                                  short[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -2674,6 +2721,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static boolean equals(char[] a, int aFromIndex, int aToIndex,
                                  char[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -2748,6 +2796,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static boolean equals(byte[] a, int aFromIndex, int aToIndex,
                                  byte[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -2821,6 +2870,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static boolean equals(boolean[] a, int aFromIndex, int aToIndex,
                                  boolean[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -2906,6 +2956,7 @@ public final class Arrays {
      * @see Double#equals(Object)
      * @since 9
      */
+    @Pure
     public static boolean equals(double[] a, int aFromIndex, int aToIndex,
                                  double[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -2990,6 +3041,7 @@ public final class Arrays {
      * @see Float#equals(Object)
      * @since 9
      */
+    @Pure
     public static boolean equals(float[] a, int aFromIndex, int aToIndex,
                                  float[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -3073,6 +3125,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static boolean equals(Object[] a, int aFromIndex, int aToIndex,
                                  Object[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -3112,6 +3165,7 @@ public final class Arrays {
      * @throws NullPointerException if the comparator is {@code null}
      * @since 9
      */
+    @Pure
     public static <T> boolean equals(T[] a, T[] a2, Comparator<? super T> cmp) {
         Objects.requireNonNull(cmp);
         if (a==a2)
@@ -3168,6 +3222,7 @@ public final class Arrays {
      *         if either array or the comparator is {@code null}
      * @since 9
      */
+    @Pure
     public static <T> boolean equals(T[] a, int aFromIndex, int aToIndex,
                                      T[] b, int bFromIndex, int bToIndex,
                                      Comparator<? super T> cmp) {
@@ -3197,6 +3252,7 @@ public final class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
+    @Pure
     public static void fill(@PolySigned long[] a, @PolySigned long val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3219,6 +3275,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned long[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, @PolySigned long val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -3232,6 +3289,7 @@ public final class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned int[] a, @PolySigned int val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3254,6 +3312,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned int[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, @PolySigned int val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -3267,6 +3326,7 @@ public final class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned short[] a, @PolySigned short val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3289,6 +3349,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned short[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, @PolySigned short val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -3302,6 +3363,7 @@ public final class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned char[] a, @PolySigned char val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3324,6 +3386,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned char[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, @PolySigned char val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -3337,6 +3400,7 @@ public final class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned byte[] a, @PolySigned byte val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3359,6 +3423,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned byte[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, @PolySigned byte val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -3372,6 +3437,7 @@ public final class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
+    @SideEffectsOnly("#1")
     public static void fill(boolean[] a, boolean val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3394,6 +3460,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
+    @SideEffectsOnly("#1")
     public static void fill(boolean[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                             boolean val) {
         rangeCheck(a.length, fromIndex, toIndex);
@@ -3408,6 +3475,7 @@ public final class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
+    @SideEffectsOnly("#1")
     public static void fill(double[] a, double val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3430,6 +3498,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
+    @SideEffectsOnly("#1")
     public static void fill(double[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,double val){
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -3443,6 +3512,7 @@ public final class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
+    @SideEffectsOnly("#1")
     public static void fill(float[] a, float val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3465,6 +3535,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
+    @SideEffectsOnly("#1")
     public static void fill(float[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, float val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -3480,6 +3551,7 @@ public final class Arrays {
      * @throws ArrayStoreException if the specified value is not of a
      *         runtime type that can be stored in the specified array
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolyInterned @PolyNull @PolySigned Object[] a, @PolyInterned @PolyNull @PolySigned Object val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3504,6 +3576,7 @@ public final class Arrays {
      * @throws ArrayStoreException if the specified value is not of a
      *         runtime type that can be stored in the specified array
      */
+    @SideEffectsOnly("#1")
     public static void fill(@PolyInterned @PolyNull @PolySigned Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, @PolyInterned @PolyNull @PolySigned Object val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -4339,6 +4412,7 @@ public final class Arrays {
         }
 
         @Override
+        @Pure
         public E get(int index) {
             return a[index];
         }
@@ -4421,7 +4495,7 @@ public final class Arrays {
         }
 
         @Override
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public E next(@NonEmpty ArrayItr<E> this) {
             int i = cursor;
@@ -5263,6 +5337,7 @@ public final class Arrays {
      * @throws NullPointerException if the generator is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static <T> void setAll(T[] array, IntFunction<? extends T> generator) {
         Objects.requireNonNull(generator);
         for (int i = 0; i < array.length; i++)
@@ -5293,6 +5368,7 @@ public final class Arrays {
      * @throws NullPointerException if the generator is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static <T> void parallelSetAll(T[] array, IntFunction<? extends T> generator) {
         Objects.requireNonNull(generator);
         IntStream.range(0, array.length).parallel().forEach(i -> { array[i] = generator.apply(i); });
@@ -5319,6 +5395,7 @@ public final class Arrays {
      * @throws NullPointerException if the generator is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void setAll(int[] array, IntUnaryOperator generator) {
         Objects.requireNonNull(generator);
         for (int i = 0; i < array.length; i++)
@@ -5348,6 +5425,7 @@ public final class Arrays {
      * @throws NullPointerException if the generator is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSetAll(int[] array, IntUnaryOperator generator) {
         Objects.requireNonNull(generator);
         IntStream.range(0, array.length).parallel().forEach(i -> { array[i] = generator.applyAsInt(i); });
@@ -5374,6 +5452,7 @@ public final class Arrays {
      * @throws NullPointerException if the generator is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void setAll(long[] array, IntToLongFunction generator) {
         Objects.requireNonNull(generator);
         for (int i = 0; i < array.length; i++)
@@ -5403,6 +5482,7 @@ public final class Arrays {
      * @throws NullPointerException if the generator is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSetAll(long[] array, IntToLongFunction generator) {
         Objects.requireNonNull(generator);
         IntStream.range(0, array.length).parallel().forEach(i -> { array[i] = generator.applyAsLong(i); });
@@ -5429,6 +5509,7 @@ public final class Arrays {
      * @throws NullPointerException if the generator is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void setAll(double[] array, IntToDoubleFunction generator) {
         Objects.requireNonNull(generator);
         for (int i = 0; i < array.length; i++)
@@ -5458,6 +5539,7 @@ public final class Arrays {
      * @throws NullPointerException if the generator is null
      * @since 1.8
      */
+    @SideEffectsOnly("#1")
     public static void parallelSetAll(double[] array, IntToDoubleFunction generator) {
         Objects.requireNonNull(generator);
         IntStream.range(0, array.length).parallel().forEach(i -> { array[i] = generator.applyAsDouble(i); });
@@ -5798,6 +5880,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compare(boolean[] a, boolean[] b) {
         if (a == b)
             return 0;
@@ -5874,6 +5957,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int compare(boolean[] a, int aFromIndex, int aToIndex,
                               boolean[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -5934,6 +6018,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compare(byte[] a, byte[] b) {
         if (a == b)
             return 0;
@@ -6009,6 +6094,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int compare(byte[] a, int aFromIndex, int aToIndex,
                               byte[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -6062,6 +6148,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compareUnsigned(@Unsigned byte[] a, @Unsigned byte[] b) {
         if (a == b)
             return 0;
@@ -6129,6 +6216,7 @@ public final class Arrays {
      *         if either array is null
      * @since 9
      */
+    @Pure
     public static int compareUnsigned(@Unsigned byte[] a, @IndexFor("#1") int aFromIndex, @IndexFor("#1") int aToIndex,
                                       @Unsigned byte[] b, @IndexFor("#3") int bFromIndex, @IndexFor("#3") int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -6189,6 +6277,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compare(short[] a, short[] b) {
         if (a == b)
             return 0;
@@ -6264,6 +6353,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int compare(short[] a, int aFromIndex, int aToIndex,
                               short[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -6317,6 +6407,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compareUnsigned(@Unsigned short[] a, @Unsigned short[] b) {
         if (a == b)
             return 0;
@@ -6383,6 +6474,7 @@ public final class Arrays {
      *         if either array is null
      * @since 9
      */
+    @Pure
     public static int compareUnsigned(@Unsigned short[] a, @IndexFor("#1") int aFromIndex, @IndexFor("#1") int aToIndex,
                                       @Unsigned short[] b, @IndexFor("#3") int bFromIndex, @IndexFor("#3") int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -6443,6 +6535,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compare(char[] a, char[] b) {
         if (a == b)
             return 0;
@@ -6518,6 +6611,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int compare(char[] a, int aFromIndex, int aToIndex,
                               char[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -6578,6 +6672,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compare(int[] a, int[] b) {
         if (a == b)
             return 0;
@@ -6653,6 +6748,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int compare(int[] a, int aFromIndex, int aToIndex,
                               int[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -6706,6 +6802,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compareUnsigned(@Unsigned int[] a, @Unsigned int[] b) {
         if (a == b)
             return 0;
@@ -6772,6 +6869,7 @@ public final class Arrays {
      *         if either array is null
      * @since 9
      */
+    @Pure
     public static int compareUnsigned(@Unsigned int[] a, @IndexFor("#1") int aFromIndex, @IndexFor("#1") int aToIndex,
                                       @Unsigned int[] b, @IndexFor("#3") int bFromIndex, @IndexFor("#3") int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -6832,6 +6930,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compare(long[] a, long[] b) {
         if (a == b)
             return 0;
@@ -6907,6 +7006,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int compare(long[] a, int aFromIndex, int aToIndex,
                               long[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -6960,6 +7060,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compareUnsigned(@Unsigned long[] a, @Unsigned long[] b) {
         if (a == b)
             return 0;
@@ -7026,6 +7127,7 @@ public final class Arrays {
      *         if either array is null
      * @since 9
      */
+    @Pure
     public static int compareUnsigned(@Unsigned long[] a, @IndexFor("#1") int aFromIndex, @IndexFor("#1") int aToIndex,
                                       @Unsigned long[] b, @IndexFor("#3") int bFromIndex, @IndexFor("#3") int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -7086,6 +7188,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compare(float[] a, float[] b) {
         if (a == b)
             return 0;
@@ -7161,6 +7264,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int compare(float[] a, int aFromIndex, int aToIndex,
                               float[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -7221,6 +7325,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static int compare(double[] a, double[] b) {
         if (a == b)
             return 0;
@@ -7296,6 +7401,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int compare(double[] a, int aFromIndex, int aToIndex,
                               double[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -7366,6 +7472,7 @@ public final class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
+    @Pure
     public static <T extends Comparable<? super T>> int compare(T[] a, T[] b) {
         if (a == b)
             return 0;
@@ -7456,6 +7563,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static <T extends Comparable<? super T>> int compare(
             T[] a, int aFromIndex, int aToIndex,
             T[] b, int bFromIndex, int bToIndex) {
@@ -7520,6 +7628,7 @@ public final class Arrays {
      * @throws NullPointerException if the comparator is {@code null}
      * @since 9
      */
+    @Pure
     public static <T> int compare(T[] a, T[] b,
                                   Comparator<? super T> cmp) {
         Objects.requireNonNull(cmp);
@@ -7596,6 +7705,7 @@ public final class Arrays {
      *         if either array or the comparator is {@code null}
      * @since 9
      */
+    @Pure
     public static <T> int compare(
             T[] a, int aFromIndex, int aToIndex,
             T[] b, int bFromIndex, int bToIndex,
@@ -7668,6 +7778,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(boolean[] a, boolean[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
@@ -7738,6 +7849,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(boolean[] a, int aFromIndex, int aToIndex,
                                boolean[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -7795,6 +7907,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(byte[] a, byte[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
@@ -7865,6 +7978,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(byte[] a, int aFromIndex, int aToIndex,
                                byte[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -7922,6 +8036,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(char[] a, char[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
@@ -7992,6 +8107,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(char[] a, int aFromIndex, int aToIndex,
                                char[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -8049,6 +8165,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(short[] a, short[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
@@ -8119,6 +8236,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(short[] a, int aFromIndex, int aToIndex,
                                short[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -8176,6 +8294,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(int[] a, int[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
@@ -8246,6 +8365,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(int[] a, int aFromIndex, int aToIndex,
                                int[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -8303,6 +8423,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(long[] a, long[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
@@ -8373,6 +8494,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(long[] a, int aFromIndex, int aToIndex,
                                long[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -8430,6 +8552,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(float[] a, float[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
@@ -8500,6 +8623,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(float[] a, int aFromIndex, int aToIndex,
                                float[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -8557,6 +8681,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(double[] a, double[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
@@ -8627,6 +8752,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(double[] a, int aFromIndex, int aToIndex,
                                double[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -8684,6 +8810,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(Object[] a, Object[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
@@ -8758,6 +8885,7 @@ public final class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
+    @Pure
     public static int mismatch(
             Object[] a, int aFromIndex, int aToIndex,
             Object[] b, int bFromIndex, int bToIndex) {
@@ -8822,6 +8950,7 @@ public final class Arrays {
      *         if either array or the comparator is {@code null}
      * @since 9
      */
+    @Pure
     public static <T> int mismatch(T[] a, T[] b, Comparator<? super T> cmp) {
         Objects.requireNonNull(cmp);
         int length = Math.min(a.length, b.length); // Check null array refs
@@ -8907,6 +9036,7 @@ public final class Arrays {
      *         if either array or the comparator is {@code null}
      * @since 9
      */
+    @Pure
     public static <T> int mismatch(
             T[] a, int aFromIndex, int aToIndex,
             T[] b, int bFromIndex, int bToIndex,

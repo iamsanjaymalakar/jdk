@@ -55,6 +55,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
@@ -246,7 +247,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         element prevents it from being added to this deque
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @CreatesCollectionObligation
     void addFirst(@GuardSatisfied @OwningCollection Deque<E> this, @Owning E e);
@@ -272,7 +273,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     void addLast(@GuardSatisfied @OwningCollection Deque<E> this, @Owning E e);
 
@@ -293,7 +294,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         element prevents it from being added to this deque
      */
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean offerFirst(@OwningCollection Deque<E> this, @Owning E e);
 
@@ -314,7 +315,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         element prevents it from being added to this deque
      */
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean offerLast(@OwningCollection Deque<E> this, @Owning E e);
 
@@ -326,7 +327,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      * @return the head of this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     E removeFirst(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
@@ -338,7 +339,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      * @return the tail of this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     E removeLast(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
@@ -348,7 +349,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @Nullable E pollFirst(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
@@ -358,7 +359,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *
      * @return the tail of this deque, or {@code null} if this deque is empty
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @Nullable E pollLast(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
@@ -393,8 +394,6 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
-    // @SideEffectsOnly("this")
-    @DoesNotUnrefineReceiver("modifiability")
     @Pure
     @Nullable @NotOwning E peekFirst(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
@@ -404,8 +403,6 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *
      * @return the tail of this deque, or {@code null} if this deque is empty
      */
-    // @SideEffectsOnly("this")
-    @DoesNotUnrefineReceiver("modifiability")
     @Pure
     @Nullable @NotOwning E peekLast(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
@@ -426,7 +423,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean removeFirstOccurrence(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Deque<E> this, Object o);
 
@@ -447,7 +444,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean removeLastOccurrence(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Deque<E> this, Object o);
 
@@ -477,7 +474,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean add(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this, E e);
 
@@ -503,7 +500,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         element prevents it from being added to this deque
      */
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean offer(@OwningCollection Deque<E> this, @Owning E e);
 
@@ -518,7 +515,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     E remove(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
@@ -532,7 +529,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      * @return the first element of this deque, or {@code null} if
      *         this deque is empty
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @Nullable E poll(@GuardSatisfied @NotOwningCollection @CanShrink Deque<E> this);
 
@@ -547,8 +544,6 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    // @SideEffectsOnly("this")
-    @DoesNotUnrefineReceiver("modifiability")
     @Pure
     @NotOwning E element(@GuardSatisfied @NotOwningCollection @NonEmpty Deque<E> this);
 
@@ -562,8 +557,6 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      * @return the head of the queue represented by this deque, or
      *         {@code null} if this deque is empty
      */
-    // @SideEffectsOnly("this")
-    @DoesNotUnrefineReceiver("modifiability")
     @Pure
     @Nullable @NotOwning E peek(@NotOwningCollection Deque<E> this);
 
@@ -592,7 +585,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         specified collection prevents it from being added to this deque
      */
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean addAll(@OwningCollection Deque<E> this, @OwningCollection Collection<? extends E> c);
 
@@ -617,7 +610,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         element prevents it from being added to this deque
      */
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     void push(@GuardSatisfied @OwningCollection Deque<E> this, @Owning E e);
 
@@ -631,7 +624,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         of the stack represented by this deque)
      * @throws NoSuchElementException if this deque is empty
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     E pop(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Deque<E> this);
 
@@ -657,7 +650,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean remove(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Deque<E> this, @UnknownSignedness Object o);
 
@@ -704,7 +697,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      * @return an iterator over the elements in this deque in reverse
      * sequence
      */
-    // @SideEffectsOnly("this")
+    @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
     @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> descendingIterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Deque<E> this);
 
@@ -718,7 +711,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      * @return a reverse-ordered view of this collection, as a {@code Deque}
      * @since 21
      */
-    // @SideEffectsOnly("this")
+    @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
     default Deque<E> reversed() {
         return ReverseOrderDequeView.of(this);

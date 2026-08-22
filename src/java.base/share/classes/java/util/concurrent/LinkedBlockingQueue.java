@@ -49,9 +49,9 @@ import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
-// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.util.AbstractQueue;
 import java.util.Collection;
@@ -343,7 +343,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
      * @throws InterruptedException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void put(E e) throws InterruptedException {
         if (e == null) throw new NullPointerException();
@@ -384,7 +384,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
      * @throws InterruptedException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean offer(E e, long timeout, TimeUnit unit)
         throws InterruptedException {
@@ -424,7 +424,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
      *
      * @throws NullPointerException if the specified element is null
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean offer(E e) {
         if (e == null) throw new NullPointerException();
@@ -450,7 +450,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
         return true;
     }
 
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public E take(@GuardSatisfied @CanShrink LinkedBlockingQueue<E> this) throws InterruptedException {
         final E x;
@@ -474,7 +474,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
         return x;
     }
 
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E poll(@GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         final E x;
@@ -501,7 +501,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
         return x;
     }
 
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E poll(@GuardSatisfied @CanShrink LinkedBlockingQueue<E> this) {
         final AtomicInteger count = this.count;
@@ -567,7 +567,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
      * @param o element to be removed from this queue, if present
      * @return {@code true} if this queue changed as a result of the call
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@CanShrink LinkedBlockingQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         if (o == null) return false;
@@ -702,7 +702,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
      * Atomically removes all of the elements from this queue.
      * The queue will be empty after this call returns.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void clear(@GuardSatisfied @CanShrink LinkedBlockingQueue<E> this) {
         fullyLock();
@@ -726,7 +726,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly({"this", "#1"})
     @DoesNotUnrefineReceiver("modifiability")
     public int drainTo(@GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, Collection<? super E> c) {
         return drainTo(c, Integer.MAX_VALUE);
@@ -738,7 +738,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly({"this", "#1"})
     @DoesNotUnrefineReceiver("modifiability")
     public int drainTo(@GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, Collection<? super E> c, int maxElements) {
         Objects.requireNonNull(c);
@@ -834,7 +834,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
             return next != null;
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public E next(@NonEmpty Itr this) {
             Node<E> p;
@@ -894,7 +894,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
             } while (n > 0 && p != null);
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public void remove() {
             Node<E> p = lastRet;
@@ -1070,7 +1070,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean removeIf(@CanShrink LinkedBlockingQueue<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
@@ -1080,7 +1080,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean removeAll(@CanShrink LinkedBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
@@ -1090,7 +1090,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean retainAll(@GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);

@@ -38,7 +38,7 @@ import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.Covariant;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
-// import org.checkerframework.dataflow.qual.SideEffectsOnly;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.util.function.Consumer;
 
@@ -93,7 +93,7 @@ public interface Iterator<E extends @MustCallUnknown Object> {
      * @return the next element in the iteration
      * @throws NoSuchElementException if the iteration has no more elements
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @NotOwning E next(@GuardSatisfied @NonEmpty @NotOwningCollection Iterator<E> this);
 
@@ -122,7 +122,7 @@ public interface Iterator<E extends @MustCallUnknown Object> {
      *         been called after the last call to the {@code next}
      *         method
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void remove(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Iterator<E> this) {
         throw new UnsupportedOperationException("remove");

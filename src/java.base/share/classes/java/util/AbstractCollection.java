@@ -40,6 +40,7 @@ import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
@@ -279,7 +280,7 @@ public abstract class AbstractCollection<E extends @MustCallUnknown Object> impl
      * @throws IllegalStateException         {@inheritDoc}
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@GuardSatisfied AbstractCollection<E> this, E e) {
         throw new UnsupportedOperationException();
@@ -302,7 +303,7 @@ public abstract class AbstractCollection<E extends @MustCallUnknown Object> impl
      * @throws ClassCastException            {@inheritDoc}
      * @throws NullPointerException          {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@GuardSatisfied @CanShrink AbstractCollection<E> this, @GuardSatisfied @UnknownSignedness Object o) {
         Iterator<E> it = iterator();
@@ -367,7 +368,7 @@ public abstract class AbstractCollection<E extends @MustCallUnknown Object> impl
      *
      * @see #add(Object)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean addAll(@GuardSatisfied AbstractCollection<E> this, Collection<? extends E> c) {
         boolean modified = false;
@@ -399,7 +400,7 @@ public abstract class AbstractCollection<E extends @MustCallUnknown Object> impl
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean removeAll(@GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
@@ -436,7 +437,7 @@ public abstract class AbstractCollection<E extends @MustCallUnknown Object> impl
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean retainAll(@GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
@@ -467,7 +468,7 @@ public abstract class AbstractCollection<E extends @MustCallUnknown Object> impl
      *
      * @throws UnsupportedOperationException {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void clear(@GuardSatisfied @CanShrink AbstractCollection<E> this) {
         Iterator<E> it = iterator();

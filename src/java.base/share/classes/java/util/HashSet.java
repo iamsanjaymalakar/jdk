@@ -42,7 +42,7 @@ import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
-// import org.checkerframework.dataflow.qual.SideEffectsOnly;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.io.InvalidObjectException;
 import jdk.internal.access.SharedSecrets;
@@ -253,7 +253,7 @@ public class HashSet<E extends @MustCallUnknown Object>
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@GuardSatisfied @NotOwningCollection HashSet<E> this, E e) {
         return map.put(e, PRESENT)==null;
@@ -271,7 +271,7 @@ public class HashSet<E extends @MustCallUnknown Object>
      * @param o object to be removed from this set, if present
      * @return {@code true} if the set contained the specified element
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return map.remove(o)==PRESENT;
@@ -281,7 +281,7 @@ public class HashSet<E extends @MustCallUnknown Object>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void clear(@GuardSatisfied HashSet<E> this) {
         map.clear();

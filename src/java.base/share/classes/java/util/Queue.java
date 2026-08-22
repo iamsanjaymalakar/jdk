@@ -50,6 +50,7 @@ import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
@@ -176,7 +177,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      */
     @EnsuresNonEmpty("this")
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean add(@GuardSatisfied @NotOwningCollection Queue<E> this, E e);
 
@@ -198,7 +199,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *         prevents it from being added to this queue
      */
     @CreatesCollectionObligation
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean offer(@GuardSatisfied @NotOwningCollection Queue<E> this, E e);
 
@@ -210,7 +211,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     E remove(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Queue<E> this);
 
@@ -220,7 +221,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @Nullable E poll(@GuardSatisfied @NotOwningCollection @CanShrink Queue<E> this);
 
@@ -241,7 +242,6 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @Pure
     @Nullable @NotOwning E peek(@GuardSatisfied @NotOwningCollection Queue<E> this);

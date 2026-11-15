@@ -49,7 +49,6 @@ import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
-import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -669,9 +668,10 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      *         ({@code index < 0 || index >= size()})
      */
     @EnsuresNonEmpty("this")
+    @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    E set(@IteratorPolyMod @Replaceable @GuardSatisfied @OwningCollection List<E> this, @IndexFor({"this"}) int index, @Owning E element);
+    E set(@IteratorPolyMod @Replaceable @GuardSatisfied @NotOwningCollection List<E> this, @IndexFor({"this"}) int index, E element);
 
     /**
      * Inserts the specified element at the specified position in this list
@@ -694,9 +694,10 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      */
     @ReleasesNoLocks
     @EnsuresNonEmpty("this")
+    @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void add(@IteratorPolyMod @Growable @GuardSatisfied @OwningCollection List<E> this, @IndexOrHigh({"this"}) int index, @Owning E element);
+    void add(@IteratorPolyMod @Growable @GuardSatisfied @NotOwningCollection List<E> this, @IndexOrHigh({"this"}) int index, E element);
     /**
      * Removes the element at the specified position in this list (optional
      * operation).  Shifts any subsequent elements to the left (subtracts one

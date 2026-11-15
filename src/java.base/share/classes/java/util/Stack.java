@@ -25,8 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
-import org.checkerframework.checker.collectionownership.qual.OwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
@@ -37,7 +37,6 @@ import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
-import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.dataflow.qual.Pure;
@@ -88,9 +87,10 @@ public class Stack<E extends @MustCallUnknown Object> extends Vector<E> {
      * @return  the {@code item} argument.
      * @see     java.util.Vector#addElement
      */
+    @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E push(@Growable @GuardSatisfied @OwningCollection Stack<E> this, @Owning E item) {
+    public @NotOwning E push(@Growable @GuardSatisfied @NotOwningCollection Stack<E> this, E item) {
         addElement(item);
 
         return item;

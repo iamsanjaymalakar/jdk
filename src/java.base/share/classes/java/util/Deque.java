@@ -50,7 +50,6 @@ import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
-import org.checkerframework.checker.mustcall.qual.Owning;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -254,7 +253,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @CreatesCollectionObligation
-    void addFirst(@SeqGrowable @GuardSatisfied @OwningCollection Deque<E> this, @Owning E e);
+    void addFirst(@SeqGrowable @GuardSatisfied @NotOwningCollection Deque<E> this, E e);
     /**
      * Inserts the specified element at the end of this deque if it is
      * possible to do so immediately without violating capacity restrictions,
@@ -278,7 +277,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void addLast(@SeqGrowable @GuardSatisfied @OwningCollection Deque<E> this, @Owning E e);
+    void addLast(@SeqGrowable @GuardSatisfied @NotOwningCollection Deque<E> this, E e);
     /**
      * Inserts the specified element at the front of this deque unless it would
      * violate capacity restrictions.  When using a capacity-restricted deque,
@@ -298,7 +297,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean offerFirst(@SeqGrowable @OwningCollection Deque<E> this, @Owning E e);
+    boolean offerFirst(@SeqGrowable @NotOwningCollection Deque<E> this, E e);
     /**
      * Inserts the specified element at the end of this deque unless it would
      * violate capacity restrictions.  When using a capacity-restricted deque,
@@ -318,7 +317,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean offerLast(@SeqGrowable @OwningCollection Deque<E> this, @Owning E e);
+    boolean offerLast(@SeqGrowable @NotOwningCollection Deque<E> this, E e);
     /**
      * Retrieves and removes the first element of this deque.  This method
      * differs from {@link #pollFirst pollFirst} only in that it throws an
@@ -495,7 +494,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean offer(@Growable @OwningCollection Deque<E> this, @Owning E e);
+    boolean offer(@Growable @NotOwningCollection Deque<E> this, E e);
     /**
      * Retrieves and removes the head of the queue represented by this deque
      * (in other words, the first element of this deque).
@@ -601,7 +600,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void push(@SeqGrowable @GuardSatisfied @OwningCollection Deque<E> this, @Owning E e);
+    void push(@SeqGrowable @GuardSatisfied @NotOwningCollection Deque<E> this, E e);
     /**
      * Pops an element from the stack represented by this deque.  In other
      * words, removes and returns the first element of this deque.

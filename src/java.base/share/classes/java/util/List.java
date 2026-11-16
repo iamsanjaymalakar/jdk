@@ -574,7 +574,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
     @SuppressWarnings({"unchecked", "rawtypes"})
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void sort(@IteratorPolyMod @Replaceable List<E> this, Comparator<? super E> c) {
+    default void sort(@IteratorPolyMod @Replaceable @NotOwningCollection List<E> this, Comparator<? super E> c) {
         Object[] a = this.toArray();
         Arrays.sort(a, (Comparator) c);
         ListIterator<E> i = this.listIterator();
@@ -824,7 +824,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      *         fromIndex > toIndex})
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyModifiable List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
+    @PolyGrowShrink @PolyModifiable @PolyOwningCollection List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink @PolyOwningCollection List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
 
     /**
      * Creates a {@link Spliterator} over the elements in this list.

@@ -280,6 +280,7 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
+    @CreatesCollectionObligation(element = "#1")
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean offer(@Growable BlockingQueue<E> this, E e, long timeout, TimeUnit unit)

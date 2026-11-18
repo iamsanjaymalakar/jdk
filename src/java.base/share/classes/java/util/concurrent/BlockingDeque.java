@@ -352,6 +352,7 @@ public interface BlockingDeque<E extends @NonNull @MustCallUnknown Object> exten
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
+    @CreatesCollectionObligation(element = "#1")
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean offerFirst(@SeqGrowable BlockingDeque<E> this, E e, long timeout, TimeUnit unit)
@@ -376,6 +377,7 @@ public interface BlockingDeque<E extends @NonNull @MustCallUnknown Object> exten
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
+    @CreatesCollectionObligation(element = "#1")
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean offerLast(@SeqGrowable BlockingDeque<E> this, E e, long timeout, TimeUnit unit)

@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
@@ -565,6 +566,7 @@ public class Vector<E extends @MustCallUnknown Object>
      * @throws ArrayIndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index >= size()})
      */
+    @CreatesCollectionObligation(element = "#1")
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public synchronized void setElementAt(@Replaceable @GuardSatisfied @OwningCollectionWithoutObligation Vector<E> this, E obj, @NonNegative int index) {
@@ -636,6 +638,7 @@ public class Vector<E extends @MustCallUnknown Object>
      * @throws ArrayIndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
+    @CreatesCollectionObligation(element = "#1")
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public synchronized void insertElementAt(@Growable @GuardSatisfied Vector<E> this, E obj, @NonNegative int index) {

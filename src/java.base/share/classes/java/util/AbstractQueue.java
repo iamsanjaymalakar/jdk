@@ -47,6 +47,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 
 /**
  * This class provides skeletal implementations of some {@link Queue}
@@ -75,7 +76,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"lock", "nullness", "modifiability"})
-public abstract class AbstractQueue<E>
+public abstract class AbstractQueue<E extends @MustCallUnknown Object>
     extends AbstractCollection<E>
     implements Queue<E> {
 

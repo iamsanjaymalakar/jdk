@@ -44,6 +44,7 @@ import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -100,7 +101,7 @@ import java.util.function.Predicate;
  * @param <E> the type of elements held in this deque
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public class LinkedBlockingDeque<E extends Object>
+public class LinkedBlockingDeque<E extends @MustCallUnknown Object>
     extends AbstractQueue<E>
     implements BlockingDeque<E>, java.io.Serializable {
 

@@ -48,6 +48,7 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 
 /**
  * A {@link SortedSet} extended with navigation methods reporting
@@ -103,7 +104,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
  */
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
 @AnnotatedFor({"lock", "nullness"})
-public @SeqUngrowable interface NavigableSet<E> extends SortedSet<E> {
+public @SeqUngrowable interface NavigableSet<E extends @MustCallUnknown Object> extends SortedSet<E> {
     /**
      * Returns the greatest element in this set strictly less than the
      * given element, or {@code null} if there is no such element.

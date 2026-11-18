@@ -36,6 +36,7 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 
 /**
  * This class provides a skeletal implementation of the {@code Set}
@@ -69,7 +70,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 @CFComment("lock/nullness: Subclasses of this interface/class may opt to prohibit null elements")
 @AnnotatedFor({"lock", "nullness"})
-public abstract class AbstractSet<E> extends AbstractCollection<E> implements Set<E> {
+public abstract class AbstractSet<E extends @MustCallUnknown Object> extends AbstractCollection<E> implements Set<E> {
     /**
      * Sole constructor.  (For invocation by subclass constructors, typically
      * implicit.)

@@ -38,6 +38,7 @@ package java.util.concurrent;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 
 /**
  * A {@link BlockingQueue} in which producers may wait for consumers
@@ -70,7 +71,7 @@ import org.checkerframework.framework.qual.AnnotatedFor;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public interface TransferQueue<E> extends BlockingQueue<E> {
+public interface TransferQueue<E extends @MustCallUnknown Object> extends BlockingQueue<E> {
     /**
      * Transfers the element to a waiting consumer immediately, if possible.
      *

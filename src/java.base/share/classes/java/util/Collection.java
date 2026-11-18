@@ -533,7 +533,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
     @EnsuresNonNullIf(expression = "#1", result = true)
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink Collection<E> this, @UnknownSignedness Object o);
+    boolean remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Collection<E> this, @UnknownSignedness Object o);
 
     // Bulk Operations
 
@@ -613,7 +613,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
     /**
      * Removes all of the elements of this collection that satisfy the given
      * predicate.  Errors or runtime exceptions thrown during iteration or by
@@ -638,7 +638,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default boolean removeIf(@IteratorPolyMod @Shrinkable @CanShrink Collection<E> this, Predicate<? super E> filter) {
+    default boolean removeIf(@IteratorPolyMod @Shrinkable @CanShrink @OwningCollectionWithoutObligation Collection<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         boolean removed = false;
         final Iterator<E> each = iterator();
@@ -675,7 +675,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean retainAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean retainAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
     /**
      * Removes all of the elements from this collection (optional operation).
      * The collection will be empty after this method returns.

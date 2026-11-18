@@ -33,6 +33,7 @@ import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 
 /**
  * A collection that has a well-defined encounter order, that supports operations at both ends,
@@ -84,7 +85,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
  * @param <E> the type of elements in this collection
  * @since 21
  */
-public interface SequencedCollection<E> extends Collection<E> {
+public interface SequencedCollection<E extends @MustCallUnknown Object> extends Collection<E> {
     /**
      * Returns a reverse-ordered <a href="Collection.html#view">view</a> of this collection.
      * The encounter order of elements in the returned view is the inverse of the encounter

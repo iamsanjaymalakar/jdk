@@ -390,7 +390,7 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      */
     @SideEffectsOnly({"this", "#1"})
     @DoesNotUnrefineReceiver("modifiability")
-    int drainTo(@Shrinkable @GuardSatisfied @CanShrink BlockingQueue<E> this, @Growable Collection<? super E> c);
+    int drainTo(@Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation BlockingQueue<E> this, @Growable Collection<? super E> c);
 
     /**
      * Removes at most the given number of available elements from
@@ -417,5 +417,5 @@ public interface BlockingQueue<E extends @NonNull @MustCallUnknown Object> exten
      */
     @SideEffectsOnly({"this", "#1"})
     @DoesNotUnrefineReceiver("modifiability")
-    int drainTo(@Shrinkable @GuardSatisfied @CanShrink BlockingQueue<E> this, @Growable Collection<? super E> c, int maxElements);
+    int drainTo(@Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation BlockingQueue<E> this, @Growable Collection<? super E> c, int maxElements);
 }

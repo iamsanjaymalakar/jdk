@@ -28,6 +28,7 @@ package java.util;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 
 /**
  * A collection that is both a {@link SequencedCollection} and a {@link Set}. As such,
@@ -52,7 +53,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
  * @param <E> the type of elements in this sequenced set
  * @since 21
  */
-public interface SequencedSet<E> extends SequencedCollection<E>, Set<E> {
+public interface SequencedSet<E extends @MustCallUnknown Object> extends SequencedCollection<E>, Set<E> {
     /**
      * {@inheritDoc}
      *

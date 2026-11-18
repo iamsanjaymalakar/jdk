@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
@@ -566,7 +567,7 @@ public class Vector<E extends @MustCallUnknown Object>
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized void setElementAt(@Replaceable @GuardSatisfied Vector<E> this, E obj, @NonNegative int index) {
+    public synchronized void setElementAt(@Replaceable @GuardSatisfied @OwningCollectionWithoutObligation Vector<E> this, E obj, @NonNegative int index) {
         if (index >= elementCount) {
             throw new ArrayIndexOutOfBoundsException(index + " >= " +
                                                      elementCount);
@@ -595,7 +596,7 @@ public class Vector<E extends @MustCallUnknown Object>
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized void removeElementAt(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this, @NonNegative int index) {
+    public synchronized void removeElementAt(@Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Vector<E> this, @NonNegative int index) {
         if (index >= elementCount) {
             throw new ArrayIndexOutOfBoundsException(index + " >= " +
                                                      elementCount);
@@ -689,7 +690,7 @@ public class Vector<E extends @MustCallUnknown Object>
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized boolean removeElement(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this, Object obj) {
+    public synchronized boolean removeElement(@Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Vector<E> this, Object obj) {
         modCount++;
         int i = indexOf(obj);
         if (i >= 0) {
@@ -707,7 +708,7 @@ public class Vector<E extends @MustCallUnknown Object>
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized void removeAllElements(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this) {
+    public synchronized void removeAllElements(@Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Vector<E> this) {
         final Object[] es = elementData;
         for (int to = elementCount, i = elementCount = 0; i < to; i++)
             es[i] = null;

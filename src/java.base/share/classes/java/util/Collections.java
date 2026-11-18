@@ -26,6 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
@@ -590,7 +591,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or its
      *         list-iterator does not support the {@code set} operation.
      */
-    public static <T> void fill(@IteratorPolyMod @Replaceable @GuardSatisfied List<? super T> list, T obj) {
+    public static <T> void fill(@IteratorPolyMod @Replaceable @GuardSatisfied @OwningCollectionWithoutObligation List<? super T> list, T obj) {
         int size = list.size();
 
         if (size < FILL_THRESHOLD || list instanceof RandomAccess) {
@@ -623,7 +624,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the destination list's
      *         list-iterator does not support the {@code set} operation.
      */
-    public static <T> void copy(@IteratorPolyMod @Replaceable List<? super T> dest, @MaybeModifiable List<? extends T> src) {
+    public static <T> void copy(@IteratorPolyMod @Replaceable @OwningCollectionWithoutObligation List<? super T> dest, @MaybeModifiable List<? extends T> src) {
         int srcSize = src.size();
         if (srcSize > dest.size())
             throw new IndexOutOfBoundsException("Source does not fit in dest");
@@ -917,7 +918,7 @@ public class Collections {
      */
     @SideEffectsOnly("#1")
     @DoesNotUnrefineReceiver("modifiability")
-    public static <T> boolean replaceAll(@IteratorPolyMod @Replaceable List<T> list, @Nullable T oldVal, T newVal) {
+    public static <T> boolean replaceAll(@IteratorPolyMod @Replaceable @OwningCollectionWithoutObligation List<T> list, @Nullable T oldVal, T newVal) {
         boolean result = false;
         int size = list.size();
         if (size < REPLACEALL_THRESHOLD || list instanceof RandomAccess) {

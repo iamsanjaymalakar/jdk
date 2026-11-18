@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -199,7 +200,7 @@ public interface ListIterator<E> extends Iterator<E> {
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void set(@Replaceable @GuardSatisfied ListIterator<E> this, E e);
+    void set(@Replaceable @GuardSatisfied @OwningCollectionWithoutObligation ListIterator<E> this, E e);
     /**
      * Inserts the specified element into the list (optional operation).
      * The element is inserted immediately before the element that

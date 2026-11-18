@@ -39,6 +39,7 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 
 /**
  * A {@link Set} that further provides a <i>total ordering</i> on its elements.
@@ -122,7 +123,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
 @AnnotatedFor({"lock", "nullness"})
-public @SeqUngrowable interface SortedSet<E> extends Set<E>, SequencedSet<E> {
+public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> extends Set<E>, SequencedSet<E> {
     /**
      * Returns the comparator used to order the elements in this set,
      * or {@code null} if this set uses the {@linkplain Comparable

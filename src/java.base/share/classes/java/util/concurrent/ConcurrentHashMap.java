@@ -35,6 +35,7 @@
 
 package java.util.concurrent;
 
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
@@ -45,6 +46,7 @@ import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -2265,7 +2267,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the new set
      * @since 1.8
      */
-    public static <K> @Modifiable @IteratorPolyMod KeySetView<K,Boolean> newKeySet() {
+    public static <K extends @MustCallUnknown Object> @Modifiable @IteratorPolyMod @OwningCollectionWithoutObligation KeySetView<K,Boolean> newKeySet() {
         return new KeySetView<K,Boolean>
             (new ConcurrentHashMap<K,Boolean>(), Boolean.TRUE);
     }
@@ -2282,7 +2284,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * elements is negative
      * @since 1.8
      */
-    public static <K> @Modifiable @IteratorPolyMod KeySetView<K,Boolean> newKeySet(int initialCapacity) {
+    public static <K extends @MustCallUnknown Object> @Modifiable @IteratorPolyMod @OwningCollectionWithoutObligation KeySetView<K,Boolean> newKeySet(int initialCapacity) {
         return new KeySetView<K,Boolean>
             (new ConcurrentHashMap<K,Boolean>(initialCapacity), Boolean.TRUE);
     }
@@ -4712,7 +4714,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      *
      * @since 1.8
      */
-    public static final class KeySetView<K,V> extends CollectionView<K,V,K>
+    public static final class KeySetView<K extends @MustCallUnknown Object,V> extends CollectionView<K,V,K>
         implements Set<K>, java.io.Serializable {
         private static final long serialVersionUID = 7249069246763182397L;
         @SuppressWarnings("serial") // Conditionally serializable

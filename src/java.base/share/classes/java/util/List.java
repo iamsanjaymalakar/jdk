@@ -504,7 +504,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @since 1.8
      */
     @DoesNotUnrefineReceiver("modifiability")
-    default void replaceAll(@IteratorPolyMod @Replaceable List<E> this, UnaryOperator<E> operator) {
+    default void replaceAll(@IteratorPolyMod @Replaceable @OwningCollectionWithoutObligation List<E> this, UnaryOperator<E> operator) {
         Objects.requireNonNull(operator);
         final ListIterator<E> li = this.listIterator();
         while (li.hasNext()) {
@@ -574,7 +574,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
     @SuppressWarnings({"unchecked", "rawtypes"})
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void sort(@IteratorPolyMod @Replaceable @NotOwningCollection List<E> this, Comparator<? super E> c) {
+    default void sort(@IteratorPolyMod @Replaceable List<E> this, Comparator<? super E> c) {
         Object[] a = this.toArray();
         Arrays.sort(a, (Comparator) c);
         ListIterator<E> i = this.listIterator();

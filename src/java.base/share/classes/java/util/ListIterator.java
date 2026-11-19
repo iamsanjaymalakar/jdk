@@ -40,6 +40,9 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 /**
  * An iterator for lists that allows the programmer
@@ -76,7 +79,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
  * @since   1.2
  */
 @AnnotatedFor({"lock", "nullness", "index"})
-public interface ListIterator<E> extends Iterator<E> {
+public interface ListIterator<E extends @MustCallUnknown Object> extends Iterator<E> {
     // Query Operations
 
     /**
@@ -104,7 +107,7 @@ public interface ListIterator<E> extends Iterator<E> {
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    E next(@GuardSatisfied @NonEmpty ListIterator<E> this);
+    @NotOwning E next(@GuardSatisfied @NonEmpty ListIterator<E> this);
 
     /**
      * Returns {@code true} if this list iterator has more elements when
@@ -132,7 +135,7 @@ public interface ListIterator<E> extends Iterator<E> {
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    E previous(@GuardSatisfied ListIterator<E> this);
+    @NotOwning E previous(@GuardSatisfied ListIterator<E> this);
 
     /**
      * Returns the index of the element that would be returned by a
@@ -224,5 +227,6 @@ public interface ListIterator<E> extends Iterator<E> {
     @CFComment("Not @EnsuresNonEmpty(this) because this adds *before* the cursor.")
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
+    @CreatesCollectionObligation
     void add(@Growable @GuardSatisfied ListIterator<E> this, E e);
 }

@@ -59,6 +59,8 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
@@ -119,7 +121,7 @@ import java.util.function.Predicate;
  * @param <E> the type of elements held in this deque
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public class ConcurrentLinkedDeque<E extends @NonNull Object>
+public class ConcurrentLinkedDeque<E extends @NonNull @MustCallUnknown Object>
     extends AbstractCollection<E>
     implements Deque<E>, java.io.Serializable {
 
@@ -903,7 +905,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     }
 
     @Pure
-    public @Nullable E peekFirst() {
+    public @Nullable @NotOwning E peekFirst() {
         restart: for (;;) {
             E item;
             Node<E> first = first(), p = first;
@@ -919,7 +921,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     }
 
     @Pure
-    public @Nullable E peekLast() {
+    public @Nullable @NotOwning E peekLast() {
         restart: for (;;) {
             E item;
             Node<E> last = last(), p = last;
@@ -939,7 +941,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getFirst(@NonEmpty ConcurrentLinkedDeque<E> this) {
+    public @NotOwning E getFirst(@NonEmpty ConcurrentLinkedDeque<E> this) {
         return screenNullResult(peekFirst());
     }
 
@@ -948,7 +950,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getLast(@NonEmpty ConcurrentLinkedDeque<E> this) {
+    public @NotOwning E getLast(@NonEmpty ConcurrentLinkedDeque<E> this) {
         return screenNullResult(peekLast());
     }
 
@@ -1050,7 +1052,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E poll(@Shrinkable @CanShrink ConcurrentLinkedDeque<E> this)           { return pollFirst(); }
     @Pure
-    public @Nullable E peek()           { return peekFirst(); }
+    public @Nullable @NotOwning E peek()           { return peekFirst(); }
 
     /**
      * @throws NoSuchElementException {@inheritDoc}
@@ -1069,7 +1071,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @throws NoSuchElementException {@inheritDoc}
      */
     @Pure
-    public E element(@NonEmpty ConcurrentLinkedDeque<E> this)        { return getFirst(); }
+    public @NotOwning E element(@NonEmpty ConcurrentLinkedDeque<E> this)        { return getFirst(); }
 
     /**
      * @throws NullPointerException {@inheritDoc}

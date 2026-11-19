@@ -40,6 +40,8 @@ import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
+import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 
 /**
  * A {@link Set} that further provides a <i>total ordering</i> on its elements.
@@ -168,7 +170,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      *         {@code toElement} lies outside the bounds of the range
      */
     @SideEffectFree
-    @PolyModifiable SortedSet<E> subSet(@PolyModifiable @GuardSatisfied SortedSet<E> this, @GuardSatisfied E fromElement, @GuardSatisfied E toElement);
+    @PolyModifiable @PolyOwningCollection SortedSet<E> subSet(@PolyModifiable @GuardSatisfied @PolyOwningCollection SortedSet<E> this, @GuardSatisfied E fromElement, @GuardSatisfied E toElement);
 
     /**
      * Returns a view of the portion of this set whose elements are
@@ -196,7 +198,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      *         bounds of the range
      */
     @SideEffectFree
-    @PolyModifiable SortedSet<E> headSet(@PolyModifiable @GuardSatisfied SortedSet<E> this, E toElement);
+    @PolyModifiable @PolyOwningCollection SortedSet<E> headSet(@PolyModifiable @GuardSatisfied @PolyOwningCollection SortedSet<E> this, E toElement);
 
     /**
      * Returns a view of the portion of this set whose elements are
@@ -224,7 +226,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      *         bounds of the range
      */
     @SideEffectFree
-    @PolyModifiable SortedSet<E> tailSet(@PolyModifiable @GuardSatisfied SortedSet<E> this, E fromElement);
+    @PolyModifiable @PolyOwningCollection SortedSet<E> tailSet(@PolyModifiable @GuardSatisfied @PolyOwningCollection SortedSet<E> this, E fromElement);
 
     /**
      * Returns the first (lowest) element currently in this set.
@@ -233,7 +235,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      * @throws NoSuchElementException if this set is empty
      */
     @Pure
-    E first(@GuardSatisfied @NonEmpty SortedSet<E> this);
+    @NotOwning E first(@GuardSatisfied @NonEmpty SortedSet<E> this);
 
     /**
      * Returns the last (highest) element currently in this set.
@@ -242,7 +244,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      * @throws NoSuchElementException if this set is empty
      */
     @Pure
-    E last(@GuardSatisfied @NonEmpty SortedSet<E> this);
+    @NotOwning E last(@GuardSatisfied @NonEmpty SortedSet<E> this);
 
     /**
      * Creates a {@code Spliterator} over the elements in this sorted set.
@@ -337,7 +339,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      */
     @EnsuresNonEmpty("this")
     @Pure
-    default E getFirst() {
+    default @NotOwning E getFirst() {
         return this.first();
     }
 
@@ -352,7 +354,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      */
     @EnsuresNonEmpty("this")
     @Pure
-    default E getLast() {
+    default @NotOwning E getLast() {
         return this.last();
     }
 

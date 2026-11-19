@@ -48,6 +48,8 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 /**
  * A {@link NavigableSet} implementation based on a {@link TreeMap}.
@@ -119,7 +121,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
 @AnnotatedFor({"lock", "nullness", "modifiability"})
-public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
+public @SeqUngrowable class TreeSet<E extends @MustCallUnknown Object> extends AbstractSet<E>
     implements NavigableSet<E>, Cloneable, java.io.Serializable
 {
     /**
@@ -445,7 +447,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
      * @throws NoSuchElementException {@inheritDoc}
      */
     @Pure
-    public E first(@GuardSatisfied @NonEmpty TreeSet<E> this) {
+    public @NotOwning E first(@GuardSatisfied @NonEmpty TreeSet<E> this) {
         return m.firstKey();
     }
 
@@ -453,7 +455,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
      * @throws NoSuchElementException {@inheritDoc}
      */
     @Pure
-    public E last(@GuardSatisfied @NonEmpty TreeSet<E> this) {
+    public @NotOwning E last(@GuardSatisfied @NonEmpty TreeSet<E> this) {
         return m.lastKey();
     }
 

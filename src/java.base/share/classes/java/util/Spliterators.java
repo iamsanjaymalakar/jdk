@@ -24,6 +24,7 @@
  */
 package java.util;
 
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -1394,7 +1395,7 @@ public final class Spliterators {
      * @see #spliterator(Iterator, long, int)
      * @since 1.8
      */
-    public abstract static class AbstractSpliterator<T> implements Spliterator<T> {
+    public abstract static class AbstractSpliterator<T extends @MustCallUnknown Object> implements Spliterator<T> {
         static final int BATCH_UNIT = 1 << 10;  // batch array size increment
         static final int MAX_BATCH = 1 << 25;  // max batch array size;
         private final int characteristics;

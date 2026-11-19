@@ -55,6 +55,8 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
@@ -108,7 +110,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E>
+public class SynchronousQueue<E extends @NonNull @MustCallUnknown Object> extends AbstractQueue<E>
     implements BlockingQueue<E>, java.io.Serializable {
     private static final long serialVersionUID = -3223113410248163686L;
 
@@ -1064,7 +1066,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return {@code null}
      */
     @Pure
-    public @Nullable E peek() {
+    public @Nullable @NotOwning E peek() {
         return null;
     }
 

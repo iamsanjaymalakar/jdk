@@ -57,6 +57,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.util.AbstractQueue;
 import java.util.Collection;
@@ -531,7 +532,7 @@ public class LinkedBlockingQueue<E extends @MustCallUnknown Object> extends Abst
     }
 
     @Pure
-    public @Nullable E peek() {
+    public @Nullable @NotOwning E peek() {
         final AtomicInteger count = this.count;
         if (count.get() == 0)
             return null;

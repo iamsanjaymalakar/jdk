@@ -59,6 +59,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.util.AbstractQueue;
 import java.util.Collection;
@@ -599,7 +600,7 @@ public class LinkedBlockingDeque<E extends @MustCallUnknown Object>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getFirst(@NonEmpty LinkedBlockingDeque<E> this) {
+    public @NotOwning E getFirst(@NonEmpty LinkedBlockingDeque<E> this) {
         E x = peekFirst();
         if (x == null) throw new NoSuchElementException();
         return x;
@@ -610,14 +611,14 @@ public class LinkedBlockingDeque<E extends @MustCallUnknown Object>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getLast(@NonEmpty LinkedBlockingDeque<E> this) {
+    public @NotOwning E getLast(@NonEmpty LinkedBlockingDeque<E> this) {
         E x = peekLast();
         if (x == null) throw new NoSuchElementException();
         return x;
     }
 
     @Pure
-    public @Nullable E peekFirst() {
+    public @Nullable @NotOwning E peekFirst() {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -628,7 +629,7 @@ public class LinkedBlockingDeque<E extends @MustCallUnknown Object>
     }
 
     @Pure
-    public @Nullable E peekLast() {
+    public @Nullable @NotOwning E peekLast() {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -770,12 +771,12 @@ public class LinkedBlockingDeque<E extends @MustCallUnknown Object>
      * @throws NoSuchElementException if this deque is empty
      */
     @Pure
-    public E element(@NonEmpty LinkedBlockingDeque<E> this) {
+    public @NotOwning E element(@NonEmpty LinkedBlockingDeque<E> this) {
         return getFirst();
     }
 
     @Pure
-    public @Nullable E peek() {
+    public @Nullable @NotOwning E peek() {
         return peekFirst();
     }
 

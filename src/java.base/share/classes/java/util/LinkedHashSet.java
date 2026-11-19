@@ -40,6 +40,8 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 /**
  * <p>Hash table and linked list implementation of the {@code Set} interface,
@@ -137,7 +139,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 @CFComment({"lock/nullness: This class permits null elements"})
 @AnnotatedFor({"lock", "nullness", "modifiability"})
-public class LinkedHashSet<E>
+public class LinkedHashSet<E extends @MustCallUnknown Object>
     extends HashSet<E>
     implements SequencedSet<E>, Cloneable, java.io.Serializable {
 
@@ -290,7 +292,7 @@ public class LinkedHashSet<E>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getFirst() {
+    public @NotOwning E getFirst() {
         return map().sequencedKeySet().getFirst();
     }
 
@@ -302,7 +304,7 @@ public class LinkedHashSet<E>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getLast() {
+    public @NotOwning E getLast() {
         return map().sequencedKeySet().getLast();
     }
 

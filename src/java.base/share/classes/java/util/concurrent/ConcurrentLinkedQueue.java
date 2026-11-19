@@ -58,6 +58,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
@@ -434,7 +435,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull @MustCallUnknown Object> e
     }
 
     @Pure
-    public @Nullable E peek() {
+    public @Nullable @NotOwning E peek() {
         restartFromHead: for (;;) {
             for (Node<E> h = head, p = h, q;; p = q) {
                 final E item;

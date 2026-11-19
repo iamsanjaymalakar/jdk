@@ -45,6 +45,7 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 /**
  * This class provides a skeletal implementation of the {@code List}
@@ -109,7 +110,7 @@ public abstract class AbstractSequentialList<E extends @MustCallUnknown Object> 
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @Pure
-    public E get(@MaybeModifiable @GuardSatisfied AbstractSequentialList<E> this, int index) {
+    public @NotOwning E get(@MaybeModifiable @GuardSatisfied AbstractSequentialList<E> this, int index) {
         try {
             return listIterator(index).next();
         } catch (NoSuchElementException exc) {

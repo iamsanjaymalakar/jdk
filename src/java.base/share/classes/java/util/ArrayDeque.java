@@ -60,6 +60,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.io.Serializable;
 import java.util.function.Consumer;
@@ -446,7 +447,7 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getFirst(@GuardSatisfied @NonEmpty ArrayDeque<E> this) {
+    public @NotOwning E getFirst(@GuardSatisfied @NonEmpty ArrayDeque<E> this) {
         E e = elementAt(elements, head);
         if (e == null)
             throw new NoSuchElementException();
@@ -458,7 +459,7 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getLast(@GuardSatisfied @NonEmpty ArrayDeque<E> this) {
+    public @NotOwning E getLast(@GuardSatisfied @NonEmpty ArrayDeque<E> this) {
         final Object[] es = elements;
         E e = elementAt(es, dec(tail, es.length));
         if (e == null)
@@ -467,12 +468,12 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
     }
 
     @Pure
-    public @Nullable E peekFirst() {
+    public @Nullable @NotOwning E peekFirst() {
         return elementAt(elements, head);
     }
 
     @Pure
-    public @Nullable E peekLast() {
+    public @Nullable @NotOwning E peekLast() {
         final Object[] es;
         return elementAt(es = elements, dec(tail, es.length));
     }
@@ -615,7 +616,7 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      * @throws NoSuchElementException {@inheritDoc}
      */
     @Pure
-    public E element(@GuardSatisfied @NonEmpty ArrayDeque<E> this) {
+    public @NotOwning E element(@GuardSatisfied @NonEmpty ArrayDeque<E> this) {
         return getFirst();
     }
 
@@ -629,7 +630,7 @@ public class ArrayDeque<E extends @NonNull @MustCallUnknown Object> extends Abst
      *         {@code null} if this deque is empty
      */
     @Pure
-    public @Nullable E peek() {
+    public @Nullable @NotOwning E peek() {
         return peekFirst();
     }
 

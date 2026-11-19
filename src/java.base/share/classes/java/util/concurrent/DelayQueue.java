@@ -57,6 +57,8 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
@@ -121,7 +123,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
+public class DelayQueue<E extends @NonNull @MustCallUnknown Delayed> extends AbstractQueue<E>
     implements BlockingQueue<E> {
 
     private final transient ReentrantLock lock = new ReentrantLock();
@@ -382,7 +384,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      *         queue is empty
      */
     @Pure
-    public @Nullable E peek() {
+    public @Nullable @NotOwning E peek() {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {

@@ -714,7 +714,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
     @ReleasesNoLocks
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    E remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink @OwningCollection List<E> this, @IndexFor({"this"}) int index);
+    E remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this, @IndexFor({"this"}) int index);
 
     // Search Operations
 
@@ -768,7 +768,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @return a list iterator over the elements in this list (in proper
      *         sequence)
      */
-    @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty List<E> this);
+    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection List<E> this);
 
     /**
      * Returns a list iterator over the elements in this list (in proper
@@ -785,7 +785,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
-    @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty List<E> this, @IndexOrHigh({"this"}) int index);
+    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection List<E> this, @IndexOrHigh({"this"}) int index);
 
     // View
 
@@ -917,7 +917,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      */
     @EnsuresNonEmpty("this")
     @Pure
-    default E getFirst() {
+    default @NotOwning E getFirst() {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
         } else {
@@ -937,7 +937,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      */
     @EnsuresNonEmpty("this")
     @Pure
-    default E getLast() {
+    default @NotOwning E getLast() {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
         } else {

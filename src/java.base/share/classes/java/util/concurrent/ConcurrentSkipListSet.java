@@ -57,6 +57,8 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.lang.reflect.Field;
 import java.util.AbstractSet;
@@ -116,7 +118,7 @@ import java.util.Spliterator;
  * @since 1.6
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
+public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull @MustCallUnknown Object>
     extends AbstractSet<E>
     implements NavigableSet<E>, Cloneable, java.io.Serializable {
 
@@ -445,7 +447,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws java.util.NoSuchElementException {@inheritDoc}
      */
     @Pure
-    public E first(@NonEmpty ConcurrentSkipListSet<E> this) {
+    public @NotOwning E first(@NonEmpty ConcurrentSkipListSet<E> this) {
         return m.firstKey();
     }
 
@@ -453,7 +455,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws java.util.NoSuchElementException {@inheritDoc}
      */
     @Pure
-    public E last(@NonEmpty ConcurrentSkipListSet<E> this) {
+    public @NotOwning E last(@NonEmpty ConcurrentSkipListSet<E> this) {
         return m.lastKey();
     }
 

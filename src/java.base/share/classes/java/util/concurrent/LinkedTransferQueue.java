@@ -57,6 +57,8 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
@@ -112,7 +114,7 @@ import java.util.function.Predicate;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public class LinkedTransferQueue<E> extends AbstractQueue<E>
+public class LinkedTransferQueue<E extends @MustCallUnknown Object> extends AbstractQueue<E>
     implements TransferQueue<E>, java.io.Serializable {
     private static final long serialVersionUID = -3223113410248163686L;
 
@@ -1402,7 +1404,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
     }
 
     @Pure
-    public @Nullable E peek() {
+    public @Nullable @NotOwning E peek() {
         restartFromHead: for (;;) {
             for (Node p = head; p != null;) {
                 Object item = p.item;

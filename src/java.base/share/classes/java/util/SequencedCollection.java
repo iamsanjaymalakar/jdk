@@ -34,6 +34,9 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
+import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 
 /**
  * A collection that has a well-defined encounter order, that supports operations at both ends,
@@ -99,7 +102,7 @@ public interface SequencedCollection<E extends @MustCallUnknown Object> extends 
      */
     @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
-    SequencedCollection<E> reversed();
+    @PolyOwningCollection SequencedCollection<E> reversed(@PolyOwningCollection SequencedCollection<E> this);
 
     /**
      * Adds an element as the first element of this collection (optional operation).
@@ -118,6 +121,7 @@ public interface SequencedCollection<E extends @MustCallUnknown Object> extends 
     @EnsuresNonEmpty("this")
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
+    @CreatesCollectionObligation
     default void addFirst(@SeqGrowable SequencedCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
@@ -139,6 +143,7 @@ public interface SequencedCollection<E extends @MustCallUnknown Object> extends 
     @EnsuresNonEmpty("this")
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
+    @CreatesCollectionObligation
     default void addLast(@SeqGrowable SequencedCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
@@ -157,7 +162,7 @@ public interface SequencedCollection<E extends @MustCallUnknown Object> extends 
      */
     @EnsuresNonEmpty("this")
     @Pure
-    default E getFirst() {
+    default @NotOwning E getFirst() {
         return this.iterator().next();
     }
 
@@ -175,7 +180,7 @@ public interface SequencedCollection<E extends @MustCallUnknown Object> extends 
      */
     @EnsuresNonEmpty("this")
     @Pure
-    default E getLast() {
+    default @NotOwning E getLast() {
         return this.reversed().iterator().next();
     }
 

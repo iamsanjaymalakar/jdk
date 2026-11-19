@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.IndexFor;
@@ -52,6 +53,7 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.util.function.Consumer;
 
@@ -154,7 +156,7 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @Pure
-    public abstract E get(@MaybeModifiable @GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index);
+    public abstract @NotOwning E get(@MaybeModifiable @GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index);
 
     /**
      * {@inheritDoc}
@@ -664,7 +666,7 @@ public abstract class AbstractList<E extends @MustCallUnknown Object> extends Ab
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    protected void removeRange(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
+    protected void removeRange(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
         ListIterator<E> it = listIterator(fromIndex);
         for (int i=0, n=toIndex-fromIndex; i<n; i++) {
             it.next();

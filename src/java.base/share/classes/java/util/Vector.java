@@ -54,6 +54,7 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -307,7 +308,7 @@ public class Vector<E extends @MustCallUnknown Object>
      * @param  newSize   the new size of this vector
      * @throws ArrayIndexOutOfBoundsException if the new size is negative
      */
-    public synchronized void setSize(@GuardSatisfied @CanShrink Vector<E> this, @NonNegative int newSize) {
+    public synchronized void setSize(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Vector<E> this, @NonNegative int newSize) {
         modCount++;
         if (newSize > elementData.length)
             grow(newSize);
@@ -510,7 +511,7 @@ public class Vector<E extends @MustCallUnknown Object>
      *         ({@code index < 0 || index >= size()})
      */
     @Pure
-    public synchronized E elementAt(@NonNegative int index) {
+    public synchronized @NotOwning E elementAt(@NonNegative int index) {
         if (index >= elementCount) {
             throw new ArrayIndexOutOfBoundsException(index + " >= " + elementCount);
         }
@@ -525,7 +526,7 @@ public class Vector<E extends @MustCallUnknown Object>
      * @return     the first component of this vector
      * @throws NoSuchElementException if this vector has no components
      */
-    public synchronized E firstElement(@NonEmpty Vector<E> this) {
+    public synchronized @NotOwning E firstElement(@NonEmpty Vector<E> this) {
         if (elementCount == 0) {
             throw new NoSuchElementException();
         }
@@ -539,7 +540,7 @@ public class Vector<E extends @MustCallUnknown Object>
      *          {@code size() - 1}
      * @throws NoSuchElementException if this vector is empty
      */
-    public synchronized E lastElement(@NonEmpty Vector<E> this) {
+    public synchronized @NotOwning E lastElement(@NonEmpty Vector<E> this) {
         if (elementCount == 0) {
             throw new NoSuchElementException();
         }
@@ -671,6 +672,7 @@ public class Vector<E extends @MustCallUnknown Object>
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
+    @CreatesCollectionObligation
     public synchronized void addElement(@Growable @GuardSatisfied Vector<E> this, E obj) {
         modCount++;
         add(obj, elementData, elementCount);
@@ -812,7 +814,7 @@ public class Vector<E extends @MustCallUnknown Object>
      * @since 1.2
      */
     @Pure
-    public synchronized E get(@GuardSatisfied Vector<E> this, @NonNegative int index) {
+    public synchronized @NotOwning E get(@GuardSatisfied Vector<E> this, @NonNegative int index) {
         if (index >= elementCount)
             throw new ArrayIndexOutOfBoundsException(index);
 

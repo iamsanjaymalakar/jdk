@@ -50,6 +50,8 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -112,7 +114,7 @@ import jdk.internal.util.ArraysSupport;
 @CFComment({"lock/nullness: This class doesn't permits null elements"})
 @AnnotatedFor({"lock", "nullness", "index", "modifiability"})
 @SuppressWarnings("unchecked")
-public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
+public class PriorityQueue<E extends @NonNull @MustCallUnknown Object> extends AbstractQueue<E>
     implements java.io.Serializable {
 
     @java.io.Serial
@@ -366,7 +368,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
     }
 
     @Pure
-    public @Nullable E peek(@GuardSatisfied PriorityQueue<E> this) {
+    public @Nullable @NotOwning E peek(@GuardSatisfied PriorityQueue<E> this) {
         return (E) queue[0];
     }
 

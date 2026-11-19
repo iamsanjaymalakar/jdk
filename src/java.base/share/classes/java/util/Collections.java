@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
+import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
@@ -42,7 +42,6 @@ import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
-import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.PolyMustCall;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -64,6 +63,7 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -667,7 +667,7 @@ public class Collections {
      */
     @Pure
     @StaticallyExecutable
-    public static <T extends Object & Comparable<? super T>> T min(@MaybeModifiable Collection<? extends T> coll) {
+    public static <T extends @MustCallUnknown Object & Comparable<? super @PolyMustCall T>> @NotOwning @PolyMustCall T min(@MaybeModifiable Collection<? extends @PolyMustCall T> coll) {
         Iterator<? extends T> i = coll.iterator();
         T candidate = i.next();
 
@@ -705,7 +705,7 @@ public class Collections {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Pure
     @StaticallyExecutable
-    public static <T> T min(@MaybeModifiable Collection<? extends T> coll, @Nullable Comparator<? super T> comp) {
+    public static <T extends @MustCallUnknown Object> @NotOwning @PolyMustCall T min(@MaybeModifiable Collection<? extends @PolyMustCall T> coll, @Nullable Comparator<? super T> comp) {
         if (comp==null)
             return (T)min((Collection<Comparable<Object>>) coll);
 
@@ -744,7 +744,7 @@ public class Collections {
      */
     @Pure
     @StaticallyExecutable
-    public static <T extends Object & Comparable<? super T>> T max(@MaybeModifiable Collection<? extends T> coll) {
+    public static <T extends @MustCallUnknown Object & Comparable<? super @PolyMustCall T>> @NotOwning @PolyMustCall T max(@MaybeModifiable Collection<? extends @PolyMustCall T> coll) {
         Iterator<? extends T> i = coll.iterator();
         T candidate = i.next();
 
@@ -782,7 +782,7 @@ public class Collections {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Pure
     @StaticallyExecutable
-    public static <T> T max(@MaybeModifiable Collection<? extends T> coll, @Nullable Comparator<? super T> comp) {
+    public static <T extends @MustCallUnknown Object> @NotOwning @PolyMustCall T max(@MaybeModifiable Collection<? extends @PolyMustCall T> coll, @Nullable Comparator<? super T> comp) {
         if (comp==null)
             return (T)max((Collection<Comparable<Object>>) coll);
 
@@ -1099,7 +1099,7 @@ public class Collections {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    public static <T> @IteratorPolyMod @Unmodifiable @PolyGrowShrink @PolyNonEmpty Collection<T> unmodifiableCollection(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty Collection<? extends T> c) {
+    public static <T extends @MustCallUnknown Object> @IteratorPolyMod @Unmodifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Collection<@PolyMustCall T> unmodifiableCollection(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Collection<? extends @PolyMustCall T> c) {
         if (c.getClass() == UnmodifiableCollection.class) {
             return (Collection<T>) c;
         }
@@ -1259,7 +1259,7 @@ public class Collections {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    public static <T> @Unmodifiable SequencedCollection<T> unmodifiableSequencedCollection(SequencedCollection<? extends T> c) {
+    public static <T extends @MustCallUnknown Object> @Unmodifiable @PolyOwningCollection SequencedCollection<@PolyMustCall T> unmodifiableSequencedCollection(@PolyOwningCollection SequencedCollection<? extends @PolyMustCall T> c) {
         if (c.getClass() == UnmodifiableSequencedCollection.class) {
             return (SequencedCollection<T>) c;
         }
@@ -1346,7 +1346,7 @@ public class Collections {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    public static <T> @IteratorPolyMod @Unmodifiable @PolyNonEmpty Set<T> unmodifiableSet(@MaybeModifiable @PolyNonEmpty Set<? extends T> s) {
+    public static <T extends @MustCallUnknown Object> @IteratorPolyMod @Unmodifiable @PolyNonEmpty @PolyOwningCollection Set<@PolyMustCall T> unmodifiableSet(@MaybeModifiable @PolyNonEmpty @PolyOwningCollection Set<? extends @PolyMustCall T> s) {
         // Not checking for subclasses because of heap pollution and information leakage.
         if (s.getClass() == UnmodifiableSet.class) {
             return (Set<T>) s;
@@ -1387,7 +1387,7 @@ public class Collections {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    public static <T> @Unmodifiable SequencedSet<T> unmodifiableSequencedSet(SequencedSet<? extends T> s) {
+    public static <T extends @MustCallUnknown Object> @Unmodifiable @PolyOwningCollection SequencedSet<@PolyMustCall T> unmodifiableSequencedSet(@PolyOwningCollection SequencedSet<? extends @PolyMustCall T> s) {
         // Not checking for subclasses because of heap pollution and information leakage.
         if (s.getClass() == UnmodifiableSequencedSet.class) {
             return (SequencedSet<T>) s;
@@ -1442,7 +1442,7 @@ public class Collections {
      * @return an unmodifiable view of the specified sorted set.
      */
     @SideEffectFree
-    public static <T> @Unmodifiable @PolyNonEmpty SortedSet<T> unmodifiableSortedSet(@MaybeModifiable @PolyNonEmpty SortedSet<T> s) {
+    public static <T extends @MustCallUnknown Object> @Unmodifiable @PolyNonEmpty @PolyOwningCollection SortedSet<@PolyMustCall T> unmodifiableSortedSet(@MaybeModifiable @PolyNonEmpty @PolyOwningCollection SortedSet<@PolyMustCall T> s) {
         // Not checking for subclasses because of heap pollution and information leakage.
         if (s.getClass() == UnmodifiableSortedSet.class) {
             return s;
@@ -1507,7 +1507,7 @@ public class Collections {
      * @since 1.8
      */
     @SideEffectFree
-    public static <T> @Unmodifiable @PolyNonEmpty NavigableSet<T> unmodifiableNavigableSet(@MaybeModifiable @PolyNonEmpty NavigableSet<T> s) {
+    public static <T extends @MustCallUnknown Object> @Unmodifiable @PolyNonEmpty @PolyOwningCollection NavigableSet<@PolyMustCall T> unmodifiableNavigableSet(@MaybeModifiable @PolyNonEmpty @PolyOwningCollection NavigableSet<@PolyMustCall T> s) {
         if (s.getClass() == UnmodifiableNavigableSet.class) {
             return s;
         }
@@ -1621,7 +1621,7 @@ public class Collections {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    public static <T> @Unmodifiable @PolyGrowShrink @PolyNonEmpty List<T> unmodifiableList(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty List<? extends T> list) {
+    public static <T extends @MustCallUnknown Object> @Unmodifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection List<@PolyMustCall T> unmodifiableList(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection List<? extends @PolyMustCall T> list) {
         if (list.getClass() == UnmodifiableList.class || list.getClass() == UnmodifiableRandomAccessList.class) {
            return (List<T>) list;
         }
@@ -2537,7 +2537,7 @@ public class Collections {
      * @param  c the collection to be "wrapped" in a synchronized collection.
      * @return a synchronized view of the specified collection.
      */
-    public static <T> @PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty Collection<T> synchronizedCollection(@PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty Collection<T> c) {
+    public static <T extends @MustCallUnknown Object> @PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty @PolyOwningCollection Collection<@PolyMustCall T> synchronizedCollection(@PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty @PolyOwningCollection Collection<@PolyMustCall T> c) {
         return new SynchronizedCollection<>(c);
     }
 
@@ -2694,7 +2694,7 @@ public class Collections {
      * @param  s the set to be "wrapped" in a synchronized set.
      * @return a synchronized view of the specified set.
      */
-    public static <T extends @MustCallUnknown Object> @PolyIteratorPolyMod @PolyModifiable Set<@PolyMustCall T> synchronizedSet(@PolyIteratorPolyMod @PolyModifiable @NotOwningCollection Set<@PolyMustCall T> s) {
+    public static <T extends @MustCallUnknown Object> @PolyIteratorPolyMod @PolyModifiable @PolyOwningCollection Set<@PolyMustCall T> synchronizedSet(@PolyIteratorPolyMod @PolyModifiable @PolyOwningCollection Set<@PolyMustCall T> s) {
         return new SynchronizedSet<>(s);
     }
 
@@ -2769,7 +2769,7 @@ public class Collections {
      * @param  s the sorted set to be "wrapped" in a synchronized sorted set.
      * @return a synchronized view of the specified sorted set.
      */
-    public static <T> @PolyModifiable SortedSet<T> synchronizedSortedSet(@PolyModifiable SortedSet<T> s) {
+    public static <T extends @MustCallUnknown Object> @PolyModifiable @PolyOwningCollection SortedSet<@PolyMustCall T> synchronizedSortedSet(@PolyModifiable @PolyOwningCollection SortedSet<@PolyMustCall T> s) {
         return new SynchronizedSortedSet<>(s);
     }
 
@@ -2868,7 +2868,7 @@ public class Collections {
      * @return a synchronized view of the specified navigable set
      * @since 1.8
      */
-    public static <T> @PolyModifiable NavigableSet<T> synchronizedNavigableSet(@PolyModifiable NavigableSet<T> s) {
+    public static <T extends @MustCallUnknown Object> @PolyModifiable @PolyOwningCollection NavigableSet<@PolyMustCall T> synchronizedNavigableSet(@PolyModifiable @PolyOwningCollection NavigableSet<@PolyMustCall T> s) {
         return new SynchronizedNavigableSet<>(s);
     }
 
@@ -2978,7 +2978,7 @@ public class Collections {
      * @param  list the list to be "wrapped" in a synchronized list.
      * @return a synchronized view of the specified list.
      */
-    public static <T> @PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty List<T> synchronizedList(@PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty List<T> list) {
+    public static <T extends @MustCallUnknown Object> @PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty @PolyOwningCollection List<@PolyMustCall T> synchronizedList(@PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty @PolyOwningCollection List<@PolyMustCall T> list) {
         return (list instanceof RandomAccess ?
                 new SynchronizedRandomAccessList<>(list) :
                 new SynchronizedList<>(list));
@@ -3709,8 +3709,8 @@ public class Collections {
      * @return a dynamically typesafe view of the specified collection
      * @since 1.5
      */
-    public static <E> @PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty Collection<E> checkedCollection(@PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty Collection<E> c,
-                                                      Class<E> type) {
+    public static <E extends @MustCallUnknown Object> @PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty @PolyOwningCollection Collection<@PolyMustCall E> checkedCollection(@PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty @PolyOwningCollection Collection<@PolyMustCall E> c,
+                                                      Class<@PolyMustCall E> type) {
         return new CheckedCollection<>(c, type);
     }
 
@@ -3896,7 +3896,7 @@ public class Collections {
      * @return a dynamically typesafe view of the specified queue
      * @since 1.8
      */
-    public static <E> @PolyGrowShrink @PolyModifiable @PolyNonEmpty Queue<E> checkedQueue(@PolyGrowShrink @PolyModifiable @PolyNonEmpty Queue<E> queue, Class<E> type) {
+    public static <E extends @MustCallUnknown Object> @PolyGrowShrink @PolyModifiable @PolyNonEmpty @PolyOwningCollection Queue<@PolyMustCall E> checkedQueue(@PolyGrowShrink @PolyModifiable @PolyNonEmpty @PolyOwningCollection Queue<@PolyMustCall E> queue, Class<@PolyMustCall E> type) {
         return new CheckedQueue<>(queue, type);
     }
 
@@ -3963,7 +3963,7 @@ public class Collections {
      * @return a dynamically typesafe view of the specified set
      * @since 1.5
      */
-    public static <E> @PolyIteratorPolyMod @PolyModifiable Set<E> checkedSet(@PolyIteratorPolyMod @PolyModifiable Set<E> s, Class<E> type) {
+    public static <E extends @MustCallUnknown Object> @PolyIteratorPolyMod @PolyModifiable @PolyOwningCollection Set<@PolyMustCall E> checkedSet(@PolyIteratorPolyMod @PolyModifiable @PolyOwningCollection Set<@PolyMustCall E> s, Class<@PolyMustCall E> type) {
         return new CheckedSet<>(s, type);
     }
 
@@ -4012,8 +4012,8 @@ public class Collections {
      * @return a dynamically typesafe view of the specified sorted set
      * @since 1.5
      */
-    public static <E> @PolyModifiable SortedSet<E> checkedSortedSet(@PolyModifiable SortedSet<E> s,
-                                                    Class<E> type) {
+    public static <E extends @MustCallUnknown Object> @PolyModifiable @PolyOwningCollection SortedSet<@PolyMustCall E> checkedSortedSet(@PolyModifiable @PolyOwningCollection SortedSet<@PolyMustCall E> s,
+                                                    Class<@PolyMustCall E> type) {
         return new CheckedSortedSet<>(s, type);
     }
 
@@ -4080,8 +4080,8 @@ public class Collections {
      * @return a dynamically typesafe view of the specified navigable set
      * @since 1.8
      */
-    public static <E> @PolyModifiable NavigableSet<E> checkedNavigableSet(@PolyModifiable NavigableSet<E> s,
-                                                    Class<E> type) {
+    public static <E extends @MustCallUnknown Object> @PolyModifiable @PolyOwningCollection NavigableSet<@PolyMustCall E> checkedNavigableSet(@PolyModifiable @PolyOwningCollection NavigableSet<@PolyMustCall E> s,
+                                                    Class<@PolyMustCall E> type) {
         return new CheckedNavigableSet<>(s, type);
     }
 
@@ -4169,7 +4169,7 @@ public class Collections {
      * @return a dynamically typesafe view of the specified list
      * @since 1.5
      */
-    public static <E> @PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty List<E> checkedList(@PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty List<E> list, Class<E> type) {
+    public static <E extends @MustCallUnknown Object> @PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty @PolyOwningCollection List<@PolyMustCall E> checkedList(@PolyGrowShrink @PolyIteratorPolyMod @PolyModifiable @PolyNonEmpty @PolyOwningCollection List<@PolyMustCall E> list, Class<@PolyMustCall E> type) {
         return (list instanceof RandomAccess ?
                 new CheckedRandomAccessList<>(list, type) :
                 new CheckedList<>(list, type));

@@ -48,6 +48,7 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 /**
  * This class provides skeletal implementations of some {@link Queue}
@@ -149,7 +150,7 @@ public abstract class AbstractQueue<E extends @MustCallUnknown Object>
      * @throws NoSuchElementException if this queue is empty
      */
     @Pure
-    public E element(@GuardSatisfied @NonEmpty AbstractQueue<E> this) {
+    public @NotOwning E element(@GuardSatisfied @NonEmpty AbstractQueue<E> this) {
         E x = peek();
         if (x != null)
             return x;

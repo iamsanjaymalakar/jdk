@@ -61,6 +61,8 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.lang.invoke.VarHandle;
 import java.lang.reflect.Field;
@@ -445,7 +447,7 @@ public class CopyOnWriteArrayList<E extends @MustCallUnknown Object>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @Pure
-    public E get(int index) {
+    public @NotOwning E get(int index) {
         return elementAt(getArray(), index);
     }
 
@@ -457,7 +459,7 @@ public class CopyOnWriteArrayList<E extends @MustCallUnknown Object>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getFirst() {
+    public @NotOwning E getFirst() {
         Object[] es = getArray();
         if (es.length == 0)
             throw new NoSuchElementException();
@@ -473,7 +475,7 @@ public class CopyOnWriteArrayList<E extends @MustCallUnknown Object>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getLast() {
+    public @NotOwning E getLast() {
         Object[] es = getArray();
         if (es.length == 0)
             throw new NoSuchElementException();
@@ -742,6 +744,7 @@ public class CopyOnWriteArrayList<E extends @MustCallUnknown Object>
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
+    @CreatesCollectionObligation
     public boolean addIfAbsent(@Growable CopyOnWriteArrayList<E> this, E e) {
         Object[] snapshot = getArray();
         return indexOfRange(e, snapshot, 0, snapshot.length) < 0

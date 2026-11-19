@@ -26,6 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
@@ -489,7 +490,7 @@ public class ArrayList<E extends @MustCallUnknown Object> extends AbstractList<E
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getFirst() {
+    public @NotOwning E getFirst() {
         if (size == 0) {
             throw new NoSuchElementException();
         } else {
@@ -505,7 +506,7 @@ public class ArrayList<E extends @MustCallUnknown Object> extends AbstractList<E
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getLast() {
+    public @NotOwning E getLast() {
         int last = size - 1;
         if (last < 0) {
             throw new NoSuchElementException();

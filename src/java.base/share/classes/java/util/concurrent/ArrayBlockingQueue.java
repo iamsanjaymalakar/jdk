@@ -57,6 +57,8 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.lang.ref.WeakReference;
 import java.util.AbstractQueue;
@@ -107,7 +109,7 @@ import java.util.function.Predicate;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public class ArrayBlockingQueue<E extends Object> extends AbstractQueue<E>
+public class ArrayBlockingQueue<E extends @MustCallUnknown Object> extends AbstractQueue<E>
         implements BlockingQueue<E>, java.io.Serializable {
 
     /*
@@ -479,7 +481,7 @@ public class ArrayBlockingQueue<E extends Object> extends AbstractQueue<E>
     }
 
     @Pure
-    public @Nullable E peek() {
+    public @Nullable @NotOwning E peek() {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {

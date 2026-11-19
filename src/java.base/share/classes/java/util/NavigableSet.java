@@ -49,6 +49,7 @@ import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 
 /**
  * A {@link SortedSet} extended with navigation methods reporting
@@ -210,7 +211,7 @@ public @SeqUngrowable interface NavigableSet<E extends @MustCallUnknown Object> 
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    @PolyModifiable NavigableSet<E> descendingSet(@PolyModifiable NavigableSet<E> this);
+    @PolyModifiable @PolyOwningCollection NavigableSet<E> descendingSet(@PolyModifiable @PolyOwningCollection NavigableSet<E> this);
     /**
      * Returns an iterator over the elements in this set, in descending order.
      * Equivalent in effect to {@code descendingSet().iterator()}.
@@ -219,7 +220,7 @@ public @SeqUngrowable interface NavigableSet<E extends @MustCallUnknown Object> 
      */
     @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
-    @PolyModifiable Iterator<E> descendingIterator(@PolyModifiable NavigableSet<E> this);
+    @PolyModifiable @PolyOwningCollection Iterator<E> descendingIterator(@PolyModifiable @PolyOwningCollection NavigableSet<E> this);
     /**
      * Returns a view of the portion of this set whose elements range from
      * {@code fromElement} to {@code toElement}.  If {@code fromElement} and
@@ -256,7 +257,7 @@ public @SeqUngrowable interface NavigableSet<E extends @MustCallUnknown Object> 
      *         {@code toElement} lies outside the bounds of the range.
      */
     @SideEffectFree
-    @PolyModifiable NavigableSet<E> subSet(@PolyModifiable NavigableSet<E> this, @GuardSatisfied E fromElement, boolean fromInclusive,
+    @PolyModifiable @PolyOwningCollection NavigableSet<E> subSet(@PolyModifiable @PolyOwningCollection NavigableSet<E> this, @GuardSatisfied E fromElement, boolean fromInclusive,
                            @GuardSatisfied E toElement,   boolean toInclusive);
 
     /**
@@ -287,7 +288,7 @@ public @SeqUngrowable interface NavigableSet<E extends @MustCallUnknown Object> 
      *         bounds of the range
      */
     @SideEffectFree
-    @PolyModifiable NavigableSet<E> headSet(@PolyModifiable NavigableSet<E> this, @GuardSatisfied E toElement, boolean inclusive);
+    @PolyModifiable @PolyOwningCollection NavigableSet<E> headSet(@PolyModifiable @PolyOwningCollection NavigableSet<E> this, @GuardSatisfied E toElement, boolean inclusive);
 
     /**
      * Returns a view of the portion of this set whose elements are greater
@@ -317,7 +318,7 @@ public @SeqUngrowable interface NavigableSet<E extends @MustCallUnknown Object> 
      *         bounds of the range
      */
     @SideEffectFree
-    @PolyModifiable NavigableSet<E> tailSet(@PolyModifiable NavigableSet<E> this, @GuardSatisfied E fromElement, boolean inclusive);
+    @PolyModifiable @PolyOwningCollection NavigableSet<E> tailSet(@PolyModifiable @PolyOwningCollection NavigableSet<E> this, @GuardSatisfied E fromElement, boolean inclusive);
 
     /**
      * {@inheritDoc}

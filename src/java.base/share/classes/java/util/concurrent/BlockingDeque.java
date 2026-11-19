@@ -57,6 +57,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.util.Deque;
 import java.util.Iterator;
@@ -642,7 +643,7 @@ public interface BlockingDeque<E extends @NonNull @MustCallUnknown Object> exten
      * @throws NoSuchElementException if this deque is empty
      */
     @Pure
-    E element(@NonEmpty BlockingDeque<E> this);
+    @NotOwning E element(@NonEmpty BlockingDeque<E> this);
 
     /**
      * Retrieves, but does not remove, the head of the queue represented by
@@ -654,7 +655,7 @@ public interface BlockingDeque<E extends @NonNull @MustCallUnknown Object> exten
      * @return the head of this deque, or {@code null} if this deque is empty
      */
     @Pure
-    @Nullable E peek();
+    @Nullable @NotOwning E peek();
 
     /**
      * Removes the first occurrence of the specified element from this deque.

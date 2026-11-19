@@ -56,6 +56,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 
 import java.util.AbstractSet;
 import java.util.Collection;
@@ -118,7 +119,7 @@ import java.util.function.Predicate;
  * @param <E> the type of elements held in this set
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public class CopyOnWriteArraySet<E> extends AbstractSet<E>
+public class CopyOnWriteArraySet<E extends @MustCallUnknown Object> extends AbstractSet<E>
         implements java.io.Serializable {
     private static final long serialVersionUID = 5457747651344034263L;
 

@@ -54,6 +54,7 @@ import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -283,7 +284,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getFirst(@GuardSatisfied @NonEmpty LinkedList<E> this) {
+    public @NotOwning E getFirst(@GuardSatisfied @NonEmpty LinkedList<E> this) {
         final Node<E> f = first;
         if (f == null)
             throw new NoSuchElementException();
@@ -298,7 +299,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
      */
     @EnsuresNonEmpty("this")
     @Pure
-    public E getLast(@GuardSatisfied @NonEmpty LinkedList<E> this) {
+    public @NotOwning E getLast(@GuardSatisfied @NonEmpty LinkedList<E> this) {
         final Node<E> l = last;
         if (l == null)
             throw new NoSuchElementException();
@@ -546,7 +547,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @Pure
-    public E get(@GuardSatisfied LinkedList<E> this, @NonNegative int index) {
+    public @NotOwning E get(@GuardSatisfied LinkedList<E> this, @NonNegative int index) {
         checkElementIndex(index);
         return node(index).item;
     }
@@ -734,7 +735,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @since 1.5
      */
     @Pure
-    public @Nullable E peek() {
+    public @Nullable @NotOwning E peek() {
         final Node<E> f = first;
         return (f == null) ? null : f.item;
     }
@@ -747,7 +748,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @since 1.5
      */
     @Pure
-    public E element(@GuardSatisfied @NonEmpty LinkedList<E> this) {
+    public @NotOwning E element(@GuardSatisfied @NonEmpty LinkedList<E> this) {
         return getFirst();
     }
 
@@ -828,7 +829,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @since 1.6
      */
     @Pure
-    public @Nullable E peekFirst() {
+    public @Nullable @NotOwning E peekFirst() {
         final Node<E> f = first;
         return (f == null) ? null : f.item;
      }
@@ -842,7 +843,7 @@ public class LinkedList<E extends @MustCallUnknown Object>
      * @since 1.6
      */
     @Pure
-    public @Nullable E peekLast() {
+    public @Nullable @NotOwning E peekLast() {
         final Node<E> l = last;
         return (l == null) ? null : l.item;
     }

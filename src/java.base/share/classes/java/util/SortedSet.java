@@ -41,7 +41,7 @@ import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 
 /**
  * A {@link Set} that further provides a <i>total ordering</i> on its elements.
@@ -170,7 +170,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      *         {@code toElement} lies outside the bounds of the range
      */
     @SideEffectFree
-    @PolyModifiable @PolyOwningCollection SortedSet<E> subSet(@PolyModifiable @GuardSatisfied @PolyOwningCollection SortedSet<E> this, @GuardSatisfied E fromElement, @GuardSatisfied E toElement);
+    @PolyModifiable @NotOwningCollection SortedSet<E> subSet(@PolyModifiable @GuardSatisfied SortedSet<E> this, @GuardSatisfied E fromElement, @GuardSatisfied E toElement);
 
     /**
      * Returns a view of the portion of this set whose elements are
@@ -198,7 +198,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      *         bounds of the range
      */
     @SideEffectFree
-    @PolyModifiable @PolyOwningCollection SortedSet<E> headSet(@PolyModifiable @GuardSatisfied @PolyOwningCollection SortedSet<E> this, E toElement);
+    @PolyModifiable @NotOwningCollection SortedSet<E> headSet(@PolyModifiable @GuardSatisfied SortedSet<E> this, E toElement);
 
     /**
      * Returns a view of the portion of this set whose elements are
@@ -226,7 +226,7 @@ public @SeqUngrowable interface SortedSet<E extends @MustCallUnknown Object> ext
      *         bounds of the range
      */
     @SideEffectFree
-    @PolyModifiable @PolyOwningCollection SortedSet<E> tailSet(@PolyModifiable @GuardSatisfied @PolyOwningCollection SortedSet<E> this, E fromElement);
+    @PolyModifiable @NotOwningCollection SortedSet<E> tailSet(@PolyModifiable @GuardSatisfied SortedSet<E> this, E fromElement);
 
     /**
      * Returns the first (lowest) element currently in this set.

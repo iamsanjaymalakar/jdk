@@ -25,7 +25,6 @@
 package java.lang;
 
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
@@ -55,7 +54,7 @@ public interface Iterable<T extends @MustCallUnknown Object> {
      *
      * @return an Iterator.
      */
-    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<T> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterable<T> this);
+    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @NotOwningCollection Iterator<T> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty Iterable<T> this);
 
     /**
      * Performs the given action for each element of the {@code Iterable}

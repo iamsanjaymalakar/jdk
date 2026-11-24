@@ -29,7 +29,6 @@ import org.checkerframework.checker.collectionownership.qual.CreatesCollectionOb
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.IndexFor;
@@ -227,7 +226,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection List<E> this);
+    @PolyGrowShrink @PolyNonEmpty @NotOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty List<E> this);
 
     /**
      * Returns an array containing all of the elements in this list in proper
@@ -768,7 +767,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @return a list iterator over the elements in this list (in proper
      *         sequence)
      */
-    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection List<E> this);
+    @PolyGrowShrink @PolyNonEmpty @NotOwningCollection ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty List<E> this);
 
     /**
      * Returns a list iterator over the elements in this list (in proper
@@ -785,7 +784,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
-    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection List<E> this, @IndexOrHigh({"this"}) int index);
+    @PolyGrowShrink @PolyNonEmpty @NotOwningCollection ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty List<E> this, @IndexOrHigh({"this"}) int index);
 
     // View
 
@@ -824,7 +823,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      *         fromIndex > toIndex})
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyModifiable @PolyOwningCollection List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink @PolyOwningCollection List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
+    @PolyGrowShrink @PolyModifiable @NotOwningCollection List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
 
     /**
      * Creates a {@link Spliterator} over the elements in this list.
@@ -1300,7 +1299,7 @@ public interface List<E extends @MustCallUnknown Object> extends SequencedCollec
      * @since 10
      */
     @SideEffectFree
-    static <E extends @MustCallUnknown Object> @Unmodifiable @PolyNonEmpty @PolyOwningCollection List<E> copyOf(@MaybeModifiable @PolyNonEmpty @PolyOwningCollection Collection<? extends E> coll) {
+    static <E extends @MustCallUnknown Object> @Unmodifiable @PolyNonEmpty @NotOwningCollection List<E> copyOf(@MaybeModifiable @PolyNonEmpty Collection<? extends E> coll) {
         return ImmutableCollections.listCopy(coll);
     }
 }

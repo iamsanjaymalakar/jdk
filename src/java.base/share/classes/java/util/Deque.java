@@ -39,7 +39,6 @@ import org.checkerframework.checker.collectionownership.qual.CreatesCollectionOb
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
@@ -672,7 +671,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      * @return an iterator over the elements in this deque in proper sequence
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Deque<E> this);
+    @PolyGrowShrink @PolyNonEmpty @NotOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty Deque<E> this);
 
     /**
      * Returns an iterator over the elements in this deque in reverse
@@ -684,7 +683,7 @@ public interface Deque<E extends @MustCallUnknown Object> extends Queue<E>, Sequ
      */
     @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
-    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> descendingIterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Deque<E> this);
+    @NotOwningCollection Iterator<E> descendingIterator();
 
     /**
      * {@inheritDoc}

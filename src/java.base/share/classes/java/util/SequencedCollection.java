@@ -36,7 +36,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.collectionownership.qual.CreatesCollectionObligation;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 
 /**
  * A collection that has a well-defined encounter order, that supports operations at both ends,
@@ -102,7 +102,7 @@ public interface SequencedCollection<E extends @MustCallUnknown Object> extends 
      */
     @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
-    @PolyOwningCollection SequencedCollection<E> reversed(@PolyOwningCollection SequencedCollection<E> this);
+    @NotOwningCollection SequencedCollection<E> reversed();
 
     /**
      * Adds an element as the first element of this collection (optional operation).

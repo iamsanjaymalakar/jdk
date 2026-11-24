@@ -26,7 +26,6 @@
 package java.util;
 
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
@@ -1123,7 +1122,7 @@ public class ArrayList<E extends @MustCallUnknown Object> extends AbstractList<E
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    public @PolyGrowShrink @PolyModifiable @PolyOwningCollection @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty @PolyOwningCollection ArrayList<E> this) {
+    public @PolyGrowShrink @PolyModifiable @PolyNonEmpty @NotOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty ArrayList<E> this) {
         return new Itr();
     }
 

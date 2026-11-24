@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
@@ -108,7 +108,7 @@ public abstract class AbstractCollection<E extends @MustCallUnknown Object> impl
      * @return an iterator over the elements contained in this collection
      */
     @SideEffectFree
-    public abstract @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection AbstractCollection<E> this);
+    public abstract @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @NotOwningCollection Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty AbstractCollection<E> this);
 
     @Pure
     public abstract @NonNegative int size(@MaybeModifiable @GuardSatisfied AbstractCollection<E> this);

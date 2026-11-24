@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
+import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -272,7 +272,7 @@ public abstract class AbstractSequentialList<E extends @MustCallUnknown Object> 
      * @return an iterator over the elements in this list (in proper sequence)
      */
     @SideEffectFree
-    public @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection AbstractSequentialList<E> this) {
+    public @PolyGrowShrink @PolyNonEmpty @NotOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty AbstractSequentialList<E> this) {
         return listIterator();
     }
 

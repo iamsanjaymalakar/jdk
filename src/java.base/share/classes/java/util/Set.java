@@ -29,7 +29,6 @@ import org.checkerframework.checker.collectionownership.qual.CreatesCollectionOb
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -195,7 +194,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @return an iterator over the elements in this set
      */
     @SideEffectFree
-    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Set<E> this);
+    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @NotOwningCollection Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty Set<E> this);
 
     /**
      * Returns an array containing all of the elements in this set.

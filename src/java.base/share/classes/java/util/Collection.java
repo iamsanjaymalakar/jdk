@@ -29,7 +29,6 @@ import org.checkerframework.checker.collectionownership.qual.CreatesCollectionOb
 import org.checkerframework.checker.collectionownership.qual.NotOwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollection;
 import org.checkerframework.checker.collectionownership.qual.OwningCollectionWithoutObligation;
-import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
@@ -346,7 +345,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @return an {@code Iterator} over the elements in this collection
      */
     @SideEffectFree
-    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Collection<E> this);
+    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @NotOwningCollection Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty Collection<E> this);
 
     /**
      * Returns an array containing all of the elements in this collection.
